@@ -887,15 +887,34 @@
         }
 
         /* ═══════════════════════════════════════
-           WORK / PROJECTS
+           NUESTRO TRABAJO — INFOGRAPHIC
            ═══════════════════════════════════════ */
+        .work {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle blueprint grid background */
+        .work::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(62,109,148,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(62,109,148,0.025) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
         .work__header {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: clamp(3rem, 7vh, 6rem);
+            margin-bottom: clamp(3rem, 6vh, 5rem);
             flex-wrap: wrap;
             gap: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .work__title {
@@ -907,198 +926,266 @@
             color: var(--accent-deep);
         }
 
-        .work__grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: clamp(1.5rem, 3vw, 2.5rem);
+        /* ─── Timeline Infographic ─── */
+        .infograph {
+            position: relative;
+            z-index: 1;
+            max-width: 1050px;
+            margin: 0 auto;
         }
 
-        .work-item {
+        /* Central vertical spine */
+        .infograph::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent 0%, var(--accent) 6%, var(--accent) 94%, transparent 100%);
+            opacity: 0.15;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        /* ─── Phase Row ─── */
+        .infograph__phase {
+            display: grid;
+            grid-template-columns: 1fr 40px 1fr;
             position: relative;
+            padding: clamp(2rem, 4vw, 3.5rem) 0;
             cursor: none;
         }
 
-        .work-item:nth-child(even) {
-            margin-top: clamp(2rem, 6vw, 5rem);
+        .infograph__phase:last-child {
+            padding-bottom: 0;
         }
 
-        .work-item__image {
-            aspect-ratio: 4 / 5;
-            overflow: hidden;
-            position: relative;
+        /* Diamond node on the spine */
+        .infograph__phase-node {
+            grid-column: 2;
+            grid-row: 1;
+            justify-self: center;
+            align-self: start;
+            margin-top: 0.2rem;
+            width: 13px;
+            height: 13px;
+            background: var(--bg);
+            border: 1.5px solid var(--accent);
+            transform: rotate(45deg);
+            opacity: 0.45;
+            z-index: 2;
+            transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
         }
 
-        .work-item:nth-child(even) .work-item__image {
-            aspect-ratio: 3 / 4;
+        .infograph__phase:hover .infograph__phase-node {
+            opacity: 0.85;
+            transform: rotate(45deg) scale(1.2);
         }
 
-        .work-item__visual {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
-        }
-
-        .work-item:hover .work-item__visual {
-            transform: scale(1.04);
-            filter: brightness(0.96) saturate(1.1);
-        }
-
-        .work-item__overlay {
+        /* Horizontal connecting arm from node toward content */
+        .infograph__phase-node::after {
+            content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(28, 37, 54, 0.75) 0%, transparent 50%);
-            display: flex;
-            align-items: flex-end;
-            padding: 2rem;
-            opacity: 0;
-            transition: opacity 0.6s var(--ease-out);
+            top: 50%;
+            height: 1px;
+            width: clamp(18px, 2.5vw, 35px);
+            background: var(--accent);
+            opacity: 0.12;
         }
 
-        .work-item:hover .work-item__overlay {
-            opacity: 1;
+        .infograph__phase:nth-child(odd) .infograph__phase-node::after {
+            right: 100%;
+            margin-right: 4px;
         }
 
-        .work-item__overlay-text {
-            font-size: 0.65rem;
+        .infograph__phase:nth-child(even) .infograph__phase-node::after {
+            left: 100%;
+            margin-left: 4px;
+        }
+
+        /* ─── Phase Content ─── */
+        .infograph__phase-content {
+            grid-row: 1;
+        }
+
+        .infograph__phase:nth-child(odd) .infograph__phase-content {
+            grid-column: 1;
+            text-align: right;
+            padding-right: clamp(1.5rem, 3vw, 3rem);
+        }
+
+        .infograph__phase:nth-child(even) .infograph__phase-content {
+            grid-column: 3;
+            padding-left: clamp(1.5rem, 3vw, 3rem);
+        }
+
+        .infograph__phase-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: #E8E4DD;
-        }
-
-        .work-item__info {
-            padding-top: 1.5rem;
-        }
-
-        .work-item__name {
-            font-family: var(--font-display);
-            font-size: clamp(1.1rem, 1.5vw, 1.35rem);
-            font-weight: 400;
-            margin-bottom: 0.3rem;
             color: var(--accent);
+            opacity: 0.5;
+            margin-bottom: 0.8rem;
         }
 
-        .work-item__category {
-            font-size: 0.65rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+        .infograph__phase-title {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
-        /* Project Visuals — Light Atelier */
-        .visual--nomada {
-            background: linear-gradient(160deg, #DED8CE 0%, #E8E4DD 40%, #D0CAC0 100%);
-            position: relative;
-        }
-
-        .visual--nomada::before {
-            content: '';
-            position: absolute;
-            width: 50%;
-            aspect-ratio: 1;
-            border: 1px solid rgba(62, 109, 148, 0.25);
-            top: 20%;
-            left: 28%;
-            transform: rotate(45deg);
-        }
-
-        .visual--nomada::after {
-            content: '';
-            position: absolute;
-            width: 25%;
-            aspect-ratio: 1;
-            border: 1px solid rgba(62, 109, 148, 0.15);
-            top: 35%;
-            left: 40%;
-            transform: rotate(45deg);
-        }
-
-        .visual--horizonte {
-            background: #E2DED7;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .visual--horizonte::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(0deg,
-                    transparent 0%, transparent 30%,
-                    rgba(62, 109, 148, 0.1) 30%, rgba(62, 109, 148, 0.1) 30.5%,
-                    transparent 30.5%, transparent 55%,
-                    rgba(28, 31, 38, 0.06) 55%, rgba(28, 31, 38, 0.06) 55.3%,
-                    transparent 55.3%, transparent 72%,
-                    rgba(62, 109, 148, 0.12) 72%, rgba(62, 109, 148, 0.12) 73%,
-                    transparent 73%
-                );
-        }
-
-        .visual--horizonte::after {
-            content: '';
-            position: absolute;
-            bottom: 15%;
-            right: 10%;
-            width: 30%;
-            height: 40%;
-            background: linear-gradient(135deg, rgba(62, 109, 148, 0.08) 0%, transparent 70%);
-        }
-
-        .visual--materia {
-            background: #E5E1DA;
-            position: relative;
-        }
-
-        .visual--materia::before {
-            content: '';
-            position: absolute;
-            width: 60%;
-            aspect-ratio: 1;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #D8D3CB 0%, #E5E1DA 100%);
-            border: 1px solid rgba(28, 31, 38, 0.08);
-            bottom: -10%;
-            right: -5%;
-        }
-
-        .visual--materia::after {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 30px;
+        .infograph__phase-rule {
+            width: 28px;
             height: 1px;
             background: var(--accent);
-            opacity: 0.5;
-        }
-
-        .visual--silencio {
-            background: #EAE7E1;
-            position: relative;
-        }
-
-        .visual--silencio::before {
-            content: '';
-            position: absolute;
-            width: 1px;
-            height: 30%;
-            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
             opacity: 0.35;
-            top: 35%;
-            left: 50%;
+            margin-bottom: 1.2rem;
+            transition: width 0.6s var(--ease-out);
         }
 
-        .visual--silencio::after {
+        .infograph__phase:nth-child(odd) .infograph__phase-rule {
+            margin-left: auto;
+        }
+
+        .infograph__phase:hover .infograph__phase-rule {
+            width: 55px;
+        }
+
+        .infograph__phase-desc {
+            font-size: clamp(0.78rem, 0.9vw, 0.88rem);
+            color: var(--text-muted);
+            line-height: 1.85;
+            max-width: 380px;
+        }
+
+        .infograph__phase:nth-child(odd) .infograph__phase-desc {
+            margin-left: auto;
+        }
+
+        /* ─── Big Watermark Numbers (opposite side from content) ─── */
+        .infograph__phase-big {
+            grid-row: 1;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(5.5rem, 10vw, 9rem);
+            font-weight: 400;
+            color: var(--accent);
+            opacity: 0.055;
+            line-height: 0.85;
+            pointer-events: none;
+            align-self: start;
+            transition: opacity 0.6s ease;
+        }
+
+        .infograph__phase:hover .infograph__phase-big {
+            opacity: 0.1;
+        }
+
+        .infograph__phase:nth-child(odd) .infograph__phase-big {
+            grid-column: 3;
+            padding-left: clamp(1rem, 2.5vw, 2.5rem);
+            padding-top: 0.2rem;
+        }
+
+        .infograph__phase:nth-child(even) .infograph__phase-big {
+            grid-column: 1;
+            text-align: right;
+            padding-right: clamp(1rem, 2.5vw, 2.5rem);
+            padding-top: 0.2rem;
+        }
+
+        /* ─── Phase Decorative Geometries ─── */
+
+        /* Phase 01 — nested diamond behind big number */
+        .infograph__phase:nth-child(1)::after {
             content: '';
             position: absolute;
-            bottom: 15%;
-            left: 10%;
-            right: 10%;
-            height: 1px;
-            background: rgba(28, 31, 38, 0.06);
+            width: 130px;
+            aspect-ratio: 1;
+            border: 1px solid var(--accent);
+            transform: rotate(45deg);
+            opacity: 0.045;
+            right: 4%;
+            top: 20%;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
         }
+
+        .infograph__phase:nth-child(1):hover::after { opacity: 0.09; }
+
+        /* Phase 02 — dot matrix */
+        .infograph__phase:nth-child(2)::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 6%;
+            top: 25%;
+            background-image: radial-gradient(circle, var(--accent) 1.2px, transparent 1.2px);
+            background-size: 11px 11px;
+            opacity: 0.06;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .infograph__phase:nth-child(2):hover::after { opacity: 0.12; }
+
+        /* Phase 03 — data bars */
+        .infograph__phase:nth-child(3)::after {
+            content: '';
+            position: absolute;
+            right: 6%;
+            top: 35%;
+            width: 100px;
+            height: 50px;
+            pointer-events: none;
+            opacity: 0.06;
+            transition: opacity 0.6s ease;
+            background:
+                linear-gradient(var(--accent), var(--accent)) 0 0 / 85% 2px no-repeat,
+                linear-gradient(var(--accent), var(--accent)) 0 11px / 55% 2px no-repeat,
+                linear-gradient(var(--accent), var(--accent)) 0 22px / 95% 2px no-repeat,
+                linear-gradient(var(--accent), var(--accent)) 0 33px / 40% 2px no-repeat,
+                linear-gradient(var(--accent), var(--accent)) 0 44px / 72% 2px no-repeat;
+        }
+
+        .infograph__phase:nth-child(3):hover::after { opacity: 0.12; }
+
+        /* Phase 04 — concentric circle */
+        .infograph__phase:nth-child(4)::after {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 1.5px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0.04;
+            left: 5%;
+            top: 12%;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .infograph__phase:nth-child(4):hover::after { opacity: 0.09; }
+
+        /* ─── Staggered reveal ─── */
+        .infograph > .reveal {
+            transition-property: opacity, transform;
+            transition-duration: 0.7s, 0.7s;
+            transition-timing-function: var(--ease-out), var(--ease-out);
+        }
+
+        .infograph > .reveal:nth-child(1) { transition-delay: 0s; }
+        .infograph > .reveal:nth-child(2) { transition-delay: 0.12s; }
+        .infograph > .reveal:nth-child(3) { transition-delay: 0.24s; }
+        .infograph > .reveal:nth-child(4) { transition-delay: 0.36s; }
 
         /* ═══════════════════════════════════════
            ABOUT / MANIFESTO
@@ -1211,16 +1298,30 @@
             pointer-events: none;
         }
 
-        .contact .label {
-            color: rgba(232, 228, 221, 0.45);
-        }
-
         .contact__inner {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: auto 1fr 1.15fr;
+            align-items: center;
+            gap: clamp(2rem, 4vw, 4rem);
             position: relative;
             z-index: 1;
+        }
+
+        /* ─── Logo seal ─── */
+        .contact__logo {
+            width: clamp(96px, 10vw, 144px);
+            height: auto;
+            opacity: 0.8;
+            transition: opacity 0.4s ease;
+        }
+
+        .contact__logo:hover {
+            opacity: 1;
+        }
+
+        /* ─── Text block ─── */
+        .contact__text {
+            align-self: center;
         }
 
         .contact__question {
@@ -1234,49 +1335,170 @@
             font-family: var(--font-display);
             font-style: italic;
             font-weight: 400;
-            font-size: clamp(4rem, 11vw, 9rem);
+            font-size: clamp(3.5rem, 8vw, 7rem);
             line-height: 1;
-            margin-bottom: 3rem;
             color: #7BA3CA;
         }
 
-        .contact__email {
-            display: inline-flex;
+        /* ─── Form System ─── */
+        .contact__form-system {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Channel buttons — stacked vertically */
+        .contact__channel-btns {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact__channel-btn {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: clamp(1.1rem, 1.8vw, 1.5rem) clamp(1.5rem, 2.5vw, 2rem);
+            color: rgba(232, 228, 221, 0.5);
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: color 0.4s ease, background 0.4s ease;
+            display: flex;
             align-items: center;
-            gap: 1rem;
-            font-size: clamp(1rem, 1.4vw, 1.2rem);
-            font-weight: 400;
+            gap: 0.8rem;
+        }
+
+        .contact__channel-btn:hover {
             color: #E8E4DD;
-            padding-bottom: 0.5rem;
-            transition: color 0.3s ease;
-            position: relative;
+            background: rgba(62, 109, 148, 0.08);
         }
 
-        .contact__email::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: repeating-linear-gradient(90deg, rgba(232, 228, 221, 0.3) 0px, rgba(232, 228, 221, 0.3) 4px, transparent 4px, transparent 8px);
-            transition: background 0.4s ease;
-        }
-
-        .contact__email:hover {
+        .contact__channel-btn.is-active {
             color: #7BA3CA;
+            background: rgba(62, 109, 148, 0.1);
         }
 
-        .contact__email:hover::after {
-            background: repeating-linear-gradient(90deg, #7BA3CA 0px, #7BA3CA 4px, transparent 4px, transparent 8px);
+        .contact__channel-btn svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
         }
 
-        .contact__email-arrow {
-            transition: transform 0.3s var(--ease-out);
+        .contact__channel-btn:hover svg,
+        .contact__channel-btn.is-active svg {
+            opacity: 1;
         }
 
-        .contact__email:hover .contact__email-arrow {
-            transform: translateX(5px);
+        /* Arrow indicator */
+        .contact__channel-btn::after {
+            content: '\2192';
+            margin-left: auto;
+            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: opacity 0.3s ease, transform 0.3s var(--ease-out);
+        }
+
+        .contact__channel-btn.is-active::after {
+            opacity: 0.6;
+            transform: translateX(0);
+        }
+
+        /* ─── Form panel — accordion ─── */
+        .contact__form-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        .contact__form-panel.is-open {
+            grid-template-rows: 1fr;
+        }
+
+        .contact__form-wrap {
+            overflow: hidden;
+        }
+
+        .contact__form-body {
+            padding: clamp(1.2rem, 2vw, 1.8rem) clamp(1.5rem, 2.5vw, 2rem) clamp(1.5rem, 2.5vw, 2rem);
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s;
+        }
+
+        .contact__form-panel.is-open .contact__form-body {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── Form fields ─── */
+        .contact__form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact__form[hidden] {
+            display: none;
+        }
+
+        .contact__field {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .contact__input,
+        .contact__textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #E8E4DD;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 300;
+            padding: 1rem 0;
+        }
+
+        .contact__input::placeholder,
+        .contact__textarea::placeholder {
+            color: rgba(232, 228, 221, 0.25);
+            font-weight: 300;
+        }
+
+        .contact__input:focus,
+        .contact__textarea:focus {
+            color: #fff;
+        }
+
+        .contact__textarea {
+            resize: none;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        .contact__submit {
+            align-self: flex-start;
+            margin-top: 1.3rem;
+            padding: 0.9rem 2.2rem;
+            background: transparent;
+            border: 1px solid rgba(123, 163, 202, 0.35);
+            color: #7BA3CA;
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+
+        .contact__submit:hover {
+            background: rgba(62, 109, 148, 0.2);
+            border-color: #7BA3CA;
+            color: #E8E4DD;
         }
 
         /* ═══════════════════════════════════════
@@ -1362,8 +1584,25 @@
                 order: -1;
             }
 
-            .work__grid {
-                gap: 1.5rem;
+            /* Timeline narrows on tablet */
+            .infograph {
+                max-width: 700px;
+            }
+
+            .infograph__phase-big {
+                font-size: clamp(4rem, 8vw, 6rem);
+            }
+
+            .infograph__phase-content {
+                padding-left: clamp(1rem, 2vw, 1.5rem);
+                padding-right: clamp(1rem, 2vw, 1.5rem);
+            }
+
+            .infograph__phase:nth-child(1)::after,
+            .infograph__phase:nth-child(2)::after,
+            .infograph__phase:nth-child(3)::after,
+            .infograph__phase:nth-child(4)::after {
+                display: none;
             }
 
             .services__blocks {
@@ -1454,16 +1693,64 @@
                 display: none;
             }
 
-            .work__grid {
-                grid-template-columns: 1fr;
+            /* Mobile timeline: spine shifts left, all content right */
+            .infograph {
+                max-width: 100%;
             }
 
-            .work-item:nth-child(even) {
-                margin-top: 0;
+            .infograph::after {
+                left: 16px;
+                transform: none;
             }
 
-            .work-item__image {
-                aspect-ratio: 3 / 2 !important;
+            .infograph__phase {
+                grid-template-columns: 32px 1fr;
+                padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+            }
+
+            /* Node always in first column */
+            .infograph__phase-node {
+                grid-column: 1;
+                width: 10px;
+                height: 10px;
+                justify-self: center;
+            }
+
+            .infograph__phase-node::after {
+                display: none;
+            }
+
+            /* Content always in second column, always left-aligned */
+            .infograph__phase-content,
+            .infograph__phase:nth-child(odd) .infograph__phase-content,
+            .infograph__phase:nth-child(even) .infograph__phase-content {
+                grid-column: 2;
+                text-align: left;
+                padding-left: clamp(0.8rem, 2vw, 1.2rem);
+                padding-right: 0;
+            }
+
+            .infograph__phase:nth-child(odd) .infograph__phase-rule {
+                margin-left: 0;
+            }
+
+            .infograph__phase:nth-child(odd) .infograph__phase-desc {
+                margin-left: 0;
+            }
+
+            /* Big numbers become subtle inline accents */
+            .infograph__phase-big,
+            .infograph__phase:nth-child(odd) .infograph__phase-big,
+            .infograph__phase:nth-child(even) .infograph__phase-big {
+                position: absolute;
+                top: clamp(1.5rem, 4vw, 2.5rem);
+                right: 0;
+                left: auto;
+                grid-column: unset;
+                text-align: right;
+                padding: 0 0.5rem 0 0;
+                font-size: clamp(3.5rem, 14vw, 5rem);
+                opacity: 0.04;
             }
 
             .about__grid {
@@ -1494,6 +1781,25 @@
 
             .svc-accordion--sub {
                 margin-left: 0.8rem;
+            }
+
+            .contact__inner {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .contact__logo {
+                justify-self: center;
+                width: 90px;
+            }
+
+            .contact__heading {
+                font-size: clamp(3rem, 13vw, 5rem);
+            }
+
+            .contact__form-system {
+                text-align: left;
             }
 
             .footer__inner {
@@ -1768,62 +2074,58 @@
         </div>
     </section>
 
-    <!-- Work -->
+    <!-- Nuestro Trabajo — Infographic -->
     <section class="work section-padding" id="trabajo">
         <div class="container">
             <div class="work__header reveal">
-                <h2 class="work__title">Trabajo seleccionado</h2>
-                <p class="label">Proyectos</p>
+                <h2 class="work__title">Nuestro trabajo</h2>
+                <p class="label">Proceso</p>
             </div>
-            <div class="work__grid">
-                <article class="work-item reveal">
-                    <div class="work-item__image">
-                        <div class="work-item__visual visual--nomada"></div>
-                        <div class="work-item__overlay">
-                            <span class="work-item__overlay-text">Ver proyecto &#8594;</span>
-                        </div>
+            <div class="infograph">
+                <!-- Phase 01: Descubrimiento (odd = content LEFT, big RIGHT) -->
+                <div class="infograph__phase reveal">
+                    <div class="infograph__phase-content">
+                        <span class="infograph__phase-label">Fase 01</span>
+                        <h3 class="infograph__phase-title">Descubrimiento</h3>
+                        <div class="infograph__phase-rule"></div>
+                        <p class="infograph__phase-desc">Analizamos el ecosistema digital de cada cliente. Identificamos oportunidades, necesidades y puntos de fricción para construir sobre una base sólida.</p>
                     </div>
-                    <div class="work-item__info">
-                        <h3 class="work-item__name">Nómada</h3>
-                        <p class="work-item__category">Identidad de marca</p>
+                    <div class="infograph__phase-node"></div>
+                    <span class="infograph__phase-big">01</span>
+                </div>
+                <!-- Phase 02: Estrategia (even = content RIGHT, big LEFT) -->
+                <div class="infograph__phase reveal">
+                    <div class="infograph__phase-content">
+                        <span class="infograph__phase-label">Fase 02</span>
+                        <h3 class="infograph__phase-title">Estrategia</h3>
+                        <div class="infograph__phase-rule"></div>
+                        <p class="infograph__phase-desc">Diseñamos hojas de ruta digitales personalizadas. Cada paso está calibrado para maximizar el impacto con los recursos disponibles.</p>
                     </div>
-                </article>
-                <article class="work-item reveal">
-                    <div class="work-item__image">
-                        <div class="work-item__visual visual--horizonte"></div>
-                        <div class="work-item__overlay">
-                            <span class="work-item__overlay-text">Ver proyecto &#8594;</span>
-                        </div>
+                    <div class="infograph__phase-node"></div>
+                    <span class="infograph__phase-big">02</span>
+                </div>
+                <!-- Phase 03: Ejecución (odd = content LEFT, big RIGHT) -->
+                <div class="infograph__phase reveal">
+                    <div class="infograph__phase-content">
+                        <span class="infograph__phase-label">Fase 03</span>
+                        <h3 class="infograph__phase-title">Ejecución</h3>
+                        <div class="infograph__phase-rule"></div>
+                        <p class="infograph__phase-desc">Construimos, integramos y lanzamos soluciones que funcionan. Desarrollo ágil con entregas incrementales y comunicación constante.</p>
                     </div>
-                    <div class="work-item__info">
-                        <h3 class="work-item__name">Horizonte</h3>
-                        <p class="work-item__category">Plataforma digital</p>
+                    <div class="infograph__phase-node"></div>
+                    <span class="infograph__phase-big">03</span>
+                </div>
+                <!-- Phase 04: Impacto (even = content RIGHT, big LEFT) -->
+                <div class="infograph__phase reveal">
+                    <div class="infograph__phase-content">
+                        <span class="infograph__phase-label">Fase 04</span>
+                        <h3 class="infograph__phase-title">Impacto</h3>
+                        <div class="infograph__phase-rule"></div>
+                        <p class="infograph__phase-desc">Medimos resultados, optimizamos procesos y escalamos lo que funciona. El éxito de nuestros clientes es nuestro mejor indicador.</p>
                     </div>
-                </article>
-                <article class="work-item reveal">
-                    <div class="work-item__image">
-                        <div class="work-item__visual visual--materia"></div>
-                        <div class="work-item__overlay">
-                            <span class="work-item__overlay-text">Ver proyecto &#8594;</span>
-                        </div>
-                    </div>
-                    <div class="work-item__info">
-                        <h3 class="work-item__name">Materia</h3>
-                        <p class="work-item__category">Dirección de arte</p>
-                    </div>
-                </article>
-                <article class="work-item reveal">
-                    <div class="work-item__image">
-                        <div class="work-item__visual visual--silencio"></div>
-                        <div class="work-item__overlay">
-                            <span class="work-item__overlay-text">Ver proyecto &#8594;</span>
-                        </div>
-                    </div>
-                    <div class="work-item__info">
-                        <h3 class="work-item__name">Silencio</h3>
-                        <p class="work-item__category">Rediseño web</p>
-                    </div>
-                </article>
+                    <div class="infograph__phase-node"></div>
+                    <span class="infograph__phase-big">04</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1871,12 +2173,63 @@
     <!-- Contact -->
     <section class="contact section-padding" id="contacto">
         <div class="container contact__inner">
-            <p class="contact__question reveal">¿Tienes un proyecto en mente?</p>
-            <h2 class="contact__heading reveal">Hablemos.</h2>
-            <a href="mailto:hola@alvaro.studio" class="contact__email reveal">
-                hola@alvaro.studio
-                <span class="contact__email-arrow">&#8594;</span>
-            </a>
+            <!-- Logo seal -->
+            <img src="Logo_Crux.PNG" alt="Crux Consulting" class="contact__logo reveal">
+
+            <!-- Text -->
+            <div class="contact__text reveal">
+                <p class="contact__question">¿Tienes un proyecto en mente?</p>
+                <h2 class="contact__heading">Hablemos.</h2>
+            </div>
+
+            <!-- Form system -->
+            <div class="contact__form-system reveal">
+                <div class="contact__channel-btns">
+                    <button class="contact__channel-btn" data-channel="whatsapp">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        WhatsApp
+                    </button>
+                    <button class="contact__channel-btn" data-channel="email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+                        Email
+                    </button>
+                </div>
+                <div class="contact__form-panel">
+                    <div class="contact__form-wrap">
+                        <div class="contact__form-body">
+                            <!-- WhatsApp form -->
+                            <form class="contact__form" id="form-whatsapp" hidden>
+                                <div class="contact__field">
+                                    <input type="text" class="contact__input" placeholder="Nombre" required>
+                                </div>
+                                <div class="contact__field">
+                                    <input type="tel" class="contact__input" placeholder="Teléfono" required>
+                                </div>
+                                <div class="contact__field">
+                                    <textarea class="contact__textarea" placeholder="Cuéntanos tu proyecto..." rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="contact__submit">Enviar por WhatsApp</button>
+                            </form>
+                            <!-- Email form -->
+                            <form class="contact__form" id="form-email" hidden>
+                                <div class="contact__field">
+                                    <input type="text" class="contact__input" placeholder="Nombre" required>
+                                </div>
+                                <div class="contact__field">
+                                    <input type="email" class="contact__input" placeholder="Email" required>
+                                </div>
+                                <div class="contact__field">
+                                    <input type="text" class="contact__input" placeholder="Asunto">
+                                </div>
+                                <div class="contact__field">
+                                    <textarea class="contact__textarea" placeholder="Cuéntanos tu proyecto..." rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="contact__submit">Enviar email</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1925,7 +2278,7 @@
         animateCursor();
 
         /* Hover states for interactive elements */
-        const hoverTargets = document.querySelectorAll('a, button, .work-item');
+        const hoverTargets = document.querySelectorAll('a, button, .infograph__phase');
         hoverTargets.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('is-hovering'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('is-hovering'));
@@ -2065,6 +2418,28 @@
                 const isOpen = acc.classList.contains('is-open');
                 acc.classList.toggle('is-open');
                 trigger.setAttribute('aria-expanded', !isOpen);
+            });
+        });
+
+        /* ═══════════════════════════════════════
+           CONTACT FORM CHANNEL TOGGLE
+           ═══════════════════════════════════════ */
+        document.querySelectorAll('.contact__channel-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const channel = btn.dataset.channel;
+                const panel = document.querySelector('.contact__form-panel');
+                const wasActive = btn.classList.contains('is-active');
+
+                document.querySelectorAll('.contact__channel-btn').forEach(b => b.classList.remove('is-active'));
+                document.querySelectorAll('.contact__form').forEach(f => f.hidden = true);
+
+                if (wasActive) {
+                    panel.classList.remove('is-open');
+                } else {
+                    btn.classList.add('is-active');
+                    document.getElementById('form-' + channel).hidden = false;
+                    panel.classList.add('is-open');
+                }
             });
         });
     </script>
