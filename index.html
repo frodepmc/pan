@@ -10,7 +10,7 @@
     <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,700&family=Jost:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ═══════════════════════════════════════
            RESET & VARIABLES
@@ -24,16 +24,17 @@
         :root {
             --bg: #F2EFE9;
             --bg-card: #E8E4DD;
-            --bg-accent: #1C2536;
+            --bg-accent: #1E3A5F;
             --text: #1C1F26;
-            --text-muted: #7A7E88;
-            --accent: #3E6D94;
+            --text-muted: #6B7280;
+            --accent: #3869AB;
             --accent-hover: #2C5478;
-            --accent-deep: #4A7DA6;
-            --border: rgba(28, 31, 38, 0.1);
-            --border-strong: rgba(28, 31, 38, 0.18);
+            --accent-deep: #5B9BD5;
+            --border: rgba(107, 114, 128, 0.15);
+            --border-strong: rgba(107, 114, 128, 0.25);
             --font-display: 'Bodoni Moda', 'Didot', 'Georgia', serif;
             --font-body: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
+            --font-brand: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
             --container: 1400px;
@@ -590,7 +591,8 @@
             border-bottom: 1px solid var(--border);
             padding: 1.2rem 0;
             overflow: hidden;
-            background: rgba(62, 109, 148, 0.04);
+            background: rgba(56, 105, 171, 0.04);
+            font-family: var(--font-brand);
         }
 
         .keywords__track {
@@ -634,6 +636,7 @@
            ═══════════════════════════════════════ */
         .services {
             border-bottom: 1px solid var(--border);
+            font-family: var(--font-brand);
         }
 
         .services__header {
@@ -887,305 +890,344 @@
         }
 
         /* ═══════════════════════════════════════
-           NUESTRO TRABAJO — INFOGRAPHIC
+           NUESTRO TRABAJO — FLOWCHART INFOGRAPHIC
            ═══════════════════════════════════════ */
         .work {
             position: relative;
             overflow: hidden;
+            font-family: var(--font-brand);
+            background: var(--bg-accent);
+            color: #fff;
         }
 
-        /* Subtle blueprint grid background */
+        .work .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Subtle grid texture on dark bg */
         .work::before {
             content: '';
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(rgba(62,109,148,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(62,109,148,0.025) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
             pointer-events: none;
         }
 
+        /* ─── Header ─── */
         .work__header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            text-align: center;
             margin-bottom: clamp(3rem, 6vh, 5rem);
-            flex-wrap: wrap;
-            gap: 1rem;
             position: relative;
-            z-index: 1;
+        }
+
+        .work__header .label {
+            color: var(--accent-deep);
         }
 
         .work__title {
             font-family: var(--font-display);
             font-style: italic;
             font-weight: 400;
-            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            font-size: clamp(2.2rem, 5vw, 4rem);
             line-height: 1.15;
-            color: var(--accent-deep);
+            color: #fff;
+            margin-bottom: 0.5rem;
         }
 
-        /* ─── Timeline Infographic ─── */
-        .infograph {
-            position: relative;
-            z-index: 1;
-            max-width: 1050px;
+        /* ─── Flowchart Container ─── */
+        .flowchart {
+            max-width: 800px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
         }
 
-        /* Central vertical spine */
-        .infograph::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
+        /* ─── Arrow Connector ─── */
+        .flow-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding: 0.4rem 0;
+        }
+
+        .flow-arrow__line {
             width: 1px;
-            background: linear-gradient(to bottom, transparent 0%, var(--accent) 6%, var(--accent) 94%, transparent 100%);
-            opacity: 0.15;
-            transform: translateX(-50%);
-            pointer-events: none;
+            height: 22px;
+            background: rgba(255,255,255,0.25);
         }
 
-        /* ─── Phase Row ─── */
-        .infograph__phase {
-            display: grid;
-            grid-template-columns: 1fr 40px 1fr;
+        .flow-arrow__head {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 7px solid rgba(255,255,255,0.25);
+        }
+
+        /* ─── Phase Card ─── */
+        .flow-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: clamp(1.8rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
+            width: 100%;
+            max-width: 580px;
+            text-align: center;
             position: relative;
-            padding: clamp(2rem, 4vw, 3.5rem) 0;
+            transition: transform 0.4s var(--ease-out), box-shadow 0.4s ease;
             cursor: none;
         }
 
-        .infograph__phase:last-child {
-            padding-bottom: 0;
+        .flow-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
         }
 
-        /* Diamond node on the spine */
-        .infograph__phase-node {
-            grid-column: 2;
-            grid-row: 1;
-            justify-self: center;
-            align-self: start;
-            margin-top: 0.2rem;
-            width: 13px;
-            height: 13px;
-            background: var(--bg);
-            border: 1.5px solid var(--accent);
-            transform: rotate(45deg);
-            opacity: 0.45;
-            z-index: 2;
-            transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
-        }
-
-        .infograph__phase:hover .infograph__phase-node {
-            opacity: 0.85;
-            transform: rotate(45deg) scale(1.2);
-        }
-
-        /* Horizontal connecting arm from node toward content */
-        .infograph__phase-node::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            height: 1px;
-            width: clamp(18px, 2.5vw, 35px);
-            background: var(--accent);
-            opacity: 0.12;
-        }
-
-        .infograph__phase:nth-child(odd) .infograph__phase-node::after {
-            right: 100%;
-            margin-right: 4px;
-        }
-
-        .infograph__phase:nth-child(even) .infograph__phase-node::after {
-            left: 100%;
-            margin-left: 4px;
-        }
-
-        /* ─── Phase Content ─── */
-        .infograph__phase-content {
-            grid-row: 1;
-        }
-
-        .infograph__phase:nth-child(odd) .infograph__phase-content {
-            grid-column: 1;
-            text-align: right;
-            padding-right: clamp(1.5rem, 3vw, 3rem);
-        }
-
-        .infograph__phase:nth-child(even) .infograph__phase-content {
-            grid-column: 3;
-            padding-left: clamp(1.5rem, 3vw, 3rem);
-        }
-
-        .infograph__phase-label {
-            font-family: var(--font-body);
+        .flow-card__num {
+            font-family: var(--font-brand);
             font-size: 0.6rem;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             color: var(--accent);
-            opacity: 0.5;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
+            display: block;
         }
 
-        .infograph__phase-title {
+        .flow-card__title {
             font-family: var(--font-display);
             font-style: italic;
-            font-size: clamp(1.4rem, 2.2vw, 1.9rem);
             font-weight: 400;
-            color: var(--text);
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--bg-accent);
             margin-bottom: 1rem;
             line-height: 1.2;
         }
 
-        .infograph__phase-rule {
-            width: 28px;
-            height: 1px;
+        .flow-card__rule {
+            width: 35px;
+            height: 2px;
             background: var(--accent);
-            opacity: 0.35;
-            margin-bottom: 1.2rem;
-            transition: width 0.6s var(--ease-out);
+            margin: 0 auto 1rem;
+            border-radius: 1px;
         }
 
-        .infograph__phase:nth-child(odd) .infograph__phase-rule {
-            margin-left: auto;
-        }
-
-        .infograph__phase:hover .infograph__phase-rule {
-            width: 55px;
-        }
-
-        .infograph__phase-desc {
-            font-size: clamp(0.78rem, 0.9vw, 0.88rem);
+        .flow-card__desc {
+            font-size: clamp(0.8rem, 0.95vw, 0.9rem);
             color: var(--text-muted);
-            line-height: 1.85;
-            max-width: 380px;
+            line-height: 1.8;
+            max-width: 420px;
+            margin: 0 auto;
         }
 
-        .infograph__phase:nth-child(odd) .infograph__phase-desc {
-            margin-left: auto;
+        /* ─── Fork: arrow splits into two paths ─── */
+        .flow-fork {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            height: 50px;
         }
 
-        /* ─── Big Watermark Numbers (opposite side from content) ─── */
-        .infograph__phase-big {
-            grid-row: 1;
+        /* Central vertical stem */
+        .flow-fork::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 18px;
+            background: rgba(255,255,255,0.25);
+            transform: translateX(-50%);
+        }
+
+        /* Horizontal crossbar */
+        .flow-fork::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 25%;
+            right: 25%;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .flow-fork__arm {
+            position: absolute;
+            top: 18px;
+            width: 1px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flow-fork__arm::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid rgba(255,255,255,0.25);
+        }
+
+        .flow-fork__arm--left {
+            left: 25%;
+            background: rgba(255,255,255,0.25);
+            transform: translateX(-50%);
+        }
+
+        .flow-fork__arm--right {
+            right: 25%;
+            background: rgba(255,255,255,0.25);
+            transform: translateX(50%);
+        }
+
+        /* ─── Sub-node pills (keywords for each phase) ─── */
+        .flow-pills {
+            display: flex;
+            justify-content: center;
+            gap: clamp(2rem, 8vw, 8rem);
+            width: 100%;
+            max-width: 580px;
+        }
+
+        .flow-pill {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 0.7rem 1.5rem;
+            font-family: var(--font-brand);
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.7);
+            transition: background 0.3s ease, border-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .flow-pill:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* ─── Merge: two paths converge back ─── */
+        .flow-merge {
+            display: flex;
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            height: 50px;
+        }
+
+        .flow-merge__arm {
+            position: absolute;
+            top: 0;
+            width: 1px;
+            height: 22px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .flow-merge__arm--left {
+            left: 25%;
+            transform: translateX(-50%);
+        }
+
+        .flow-merge__arm--right {
+            right: 25%;
+            transform: translateX(50%);
+        }
+
+        /* Horizontal merge bar */
+        .flow-merge::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 25%;
+            right: 25%;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Final stem down + arrow */
+        .flow-merge::after {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            width: 1px;
+            height: 28px;
+            background: rgba(255,255,255,0.25);
+            transform: translateX(-50%);
+        }
+
+        /* ─── Dashed decorative side lines ─── */
+        .flowchart::before,
+        .flowchart::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            bottom: 15%;
+            width: 1px;
+            border-left: 1px dashed rgba(255,255,255,0.06);
+            pointer-events: none;
+        }
+
+        .flowchart::before { left: 5%; }
+        .flowchart::after { right: 5%; }
+
+        /* ─── Final outcome node ─── */
+        .flow-outcome {
+            background: var(--accent);
+            border-radius: 14px;
+            padding: 1.5rem 3rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-outcome__text {
             font-family: var(--font-display);
             font-style: italic;
-            font-size: clamp(5.5rem, 10vw, 9rem);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: #fff;
             font-weight: 400;
-            color: var(--accent);
-            opacity: 0.055;
-            line-height: 0.85;
-            pointer-events: none;
-            align-self: start;
-            transition: opacity 0.6s ease;
         }
 
-        .infograph__phase:hover .infograph__phase-big {
-            opacity: 0.1;
-        }
-
-        .infograph__phase:nth-child(odd) .infograph__phase-big {
-            grid-column: 3;
-            padding-left: clamp(1rem, 2.5vw, 2.5rem);
-            padding-top: 0.2rem;
-        }
-
-        .infograph__phase:nth-child(even) .infograph__phase-big {
-            grid-column: 1;
-            text-align: right;
-            padding-right: clamp(1rem, 2.5vw, 2.5rem);
-            padding-top: 0.2rem;
-        }
-
-        /* ─── Phase Decorative Geometries ─── */
-
-        /* Phase 01 — nested diamond behind big number */
-        .infograph__phase:nth-child(1)::after {
-            content: '';
-            position: absolute;
-            width: 130px;
-            aspect-ratio: 1;
-            border: 1px solid var(--accent);
-            transform: rotate(45deg);
-            opacity: 0.045;
-            right: 4%;
-            top: 20%;
-            pointer-events: none;
-            transition: opacity 0.6s ease;
-        }
-
-        .infograph__phase:nth-child(1):hover::after { opacity: 0.09; }
-
-        /* Phase 02 — dot matrix */
-        .infograph__phase:nth-child(2)::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            left: 6%;
-            top: 25%;
-            background-image: radial-gradient(circle, var(--accent) 1.2px, transparent 1.2px);
-            background-size: 11px 11px;
-            opacity: 0.06;
-            pointer-events: none;
-            transition: opacity 0.6s ease;
-        }
-
-        .infograph__phase:nth-child(2):hover::after { opacity: 0.12; }
-
-        /* Phase 03 — data bars */
-        .infograph__phase:nth-child(3)::after {
-            content: '';
-            position: absolute;
-            right: 6%;
-            top: 35%;
-            width: 100px;
-            height: 50px;
-            pointer-events: none;
-            opacity: 0.06;
-            transition: opacity 0.6s ease;
-            background:
-                linear-gradient(var(--accent), var(--accent)) 0 0 / 85% 2px no-repeat,
-                linear-gradient(var(--accent), var(--accent)) 0 11px / 55% 2px no-repeat,
-                linear-gradient(var(--accent), var(--accent)) 0 22px / 95% 2px no-repeat,
-                linear-gradient(var(--accent), var(--accent)) 0 33px / 40% 2px no-repeat,
-                linear-gradient(var(--accent), var(--accent)) 0 44px / 72% 2px no-repeat;
-        }
-
-        .infograph__phase:nth-child(3):hover::after { opacity: 0.12; }
-
-        /* Phase 04 — concentric circle */
-        .infograph__phase:nth-child(4)::after {
-            content: '';
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border: 1.5px solid var(--accent);
-            border-radius: 50%;
-            opacity: 0.04;
-            left: 5%;
-            top: 12%;
-            pointer-events: none;
-            transition: opacity 0.6s ease;
-        }
-
-        .infograph__phase:nth-child(4):hover::after { opacity: 0.09; }
-
-        /* ─── Staggered reveal ─── */
-        .infograph > .reveal {
+        /* ─── Staggered reveals ─── */
+        .flowchart .reveal {
             transition-property: opacity, transform;
-            transition-duration: 0.7s, 0.7s;
+            transition-duration: 0.6s, 0.6s;
             transition-timing-function: var(--ease-out), var(--ease-out);
         }
 
-        .infograph > .reveal:nth-child(1) { transition-delay: 0s; }
-        .infograph > .reveal:nth-child(2) { transition-delay: 0.12s; }
-        .infograph > .reveal:nth-child(3) { transition-delay: 0.24s; }
-        .infograph > .reveal:nth-child(4) { transition-delay: 0.36s; }
+        .flowchart .reveal:nth-child(1) { transition-delay: 0s; }
+        .flowchart .reveal:nth-child(2) { transition-delay: 0.04s; }
+        .flowchart .reveal:nth-child(3) { transition-delay: 0.08s; }
+        .flowchart .reveal:nth-child(4) { transition-delay: 0.12s; }
+        .flowchart .reveal:nth-child(5) { transition-delay: 0.16s; }
+        .flowchart .reveal:nth-child(6) { transition-delay: 0.2s; }
+        .flowchart .reveal:nth-child(7) { transition-delay: 0.24s; }
+        .flowchart .reveal:nth-child(8) { transition-delay: 0.28s; }
+        .flowchart .reveal:nth-child(9) { transition-delay: 0.32s; }
+        .flowchart .reveal:nth-child(10) { transition-delay: 0.36s; }
+        .flowchart .reveal:nth-child(11) { transition-delay: 0.4s; }
+        .flowchart .reveal:nth-child(12) { transition-delay: 0.44s; }
+        .flowchart .reveal:nth-child(13) { transition-delay: 0.48s; }
+        .flowchart .reveal:nth-child(14) { transition-delay: 0.52s; }
+        .flowchart .reveal:nth-child(15) { transition-delay: 0.56s; }
+        .flowchart .reveal:nth-child(16) { transition-delay: 0.6s; }
+        .flowchart .reveal:nth-child(17) { transition-delay: 0.64s; }
 
         /* ═══════════════════════════════════════
            ABOUT / MANIFESTO
@@ -1309,7 +1351,7 @@
 
         /* ─── Logo seal ─── */
         .contact__logo {
-            width: clamp(96px, 10vw, 144px);
+            width: clamp(134px, 14vw, 202px);
             height: auto;
             opacity: 0.8;
             transition: opacity 0.4s ease;
@@ -1509,6 +1551,7 @@
             padding: 3rem 0;
             border-top: 1px solid var(--accent);
             border-image: linear-gradient(90deg, var(--accent), transparent 60%) 1;
+            font-family: var(--font-brand);
         }
 
         .footer__inner {
@@ -1584,24 +1627,17 @@
                 order: -1;
             }
 
-            /* Timeline narrows on tablet */
-            .infograph {
-                max-width: 700px;
+            /* Flowchart compresses on tablet */
+            .flowchart {
+                max-width: 500px;
             }
 
-            .infograph__phase-big {
-                font-size: clamp(4rem, 8vw, 6rem);
+            .flow-card {
+                padding: 1.5rem 1.8rem;
             }
 
-            .infograph__phase-content {
-                padding-left: clamp(1rem, 2vw, 1.5rem);
-                padding-right: clamp(1rem, 2vw, 1.5rem);
-            }
-
-            .infograph__phase:nth-child(1)::after,
-            .infograph__phase:nth-child(2)::after,
-            .infograph__phase:nth-child(3)::after,
-            .infograph__phase:nth-child(4)::after {
+            .flowchart::before,
+            .flowchart::after {
                 display: none;
             }
 
@@ -1693,64 +1729,39 @@
                 display: none;
             }
 
-            /* Mobile timeline: spine shifts left, all content right */
-            .infograph {
+            /* Mobile flowchart: tighter, narrower pills */
+            .flowchart {
                 max-width: 100%;
             }
 
-            .infograph::after {
-                left: 16px;
-                transform: none;
+            .flow-card {
+                padding: 1.3rem 1.2rem;
+                border-radius: 10px;
             }
 
-            .infograph__phase {
-                grid-template-columns: 32px 1fr;
-                padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+            .flow-card__title {
+                font-size: clamp(1.2rem, 5vw, 1.6rem);
             }
 
-            /* Node always in first column */
-            .infograph__phase-node {
-                grid-column: 1;
-                width: 10px;
-                height: 10px;
-                justify-self: center;
+            .flow-pills {
+                gap: 1rem;
             }
 
-            .infograph__phase-node::after {
-                display: none;
+            .flow-pill {
+                padding: 0.5rem 1rem;
+                font-size: 0.6rem;
             }
 
-            /* Content always in second column, always left-aligned */
-            .infograph__phase-content,
-            .infograph__phase:nth-child(odd) .infograph__phase-content,
-            .infograph__phase:nth-child(even) .infograph__phase-content {
-                grid-column: 2;
-                text-align: left;
-                padding-left: clamp(0.8rem, 2vw, 1.2rem);
-                padding-right: 0;
-            }
+            .flow-fork__arm--left { left: 28%; }
+            .flow-fork__arm--right { right: 28%; }
+            .flow-fork::after { left: 28%; right: 28%; }
+            .flow-merge__arm--left { left: 28%; }
+            .flow-merge__arm--right { right: 28%; }
+            .flow-merge::before { left: 28%; right: 28%; }
 
-            .infograph__phase:nth-child(odd) .infograph__phase-rule {
-                margin-left: 0;
-            }
-
-            .infograph__phase:nth-child(odd) .infograph__phase-desc {
-                margin-left: 0;
-            }
-
-            /* Big numbers become subtle inline accents */
-            .infograph__phase-big,
-            .infograph__phase:nth-child(odd) .infograph__phase-big,
-            .infograph__phase:nth-child(even) .infograph__phase-big {
-                position: absolute;
-                top: clamp(1.5rem, 4vw, 2.5rem);
-                right: 0;
-                left: auto;
-                grid-column: unset;
-                text-align: right;
-                padding: 0 0.5rem 0 0;
-                font-size: clamp(3.5rem, 14vw, 5rem);
-                opacity: 0.04;
+            .flow-outcome {
+                padding: 1.2rem 2rem;
+                border-radius: 10px;
             }
 
             .about__grid {
@@ -1791,7 +1802,7 @@
 
             .contact__logo {
                 justify-self: center;
-                width: 90px;
+                width: 126px;
             }
 
             .contact__heading {
@@ -2081,50 +2092,76 @@
                 <h2 class="work__title">Nuestro trabajo</h2>
                 <p class="label">Proceso</p>
             </div>
-            <div class="infograph">
-                <!-- Phase 01: Descubrimiento (odd = content LEFT, big RIGHT) -->
-                <div class="infograph__phase reveal">
-                    <div class="infograph__phase-content">
-                        <span class="infograph__phase-label">Fase 01</span>
-                        <h3 class="infograph__phase-title">Descubrimiento</h3>
-                        <div class="infograph__phase-rule"></div>
-                        <p class="infograph__phase-desc">Analizamos el ecosistema digital de cada cliente. Identificamos oportunidades, necesidades y puntos de fricción para construir sobre una base sólida.</p>
-                    </div>
-                    <div class="infograph__phase-node"></div>
-                    <span class="infograph__phase-big">01</span>
+            <div class="flowchart">
+                <!-- Arrow into Phase 01 -->
+                <div class="flow-arrow reveal"><div class="flow-arrow__line"></div><div class="flow-arrow__head"></div></div>
+
+                <!-- Phase 01 -->
+                <div class="flow-card reveal">
+                    <span class="flow-card__num">Fase 01</span>
+                    <h3 class="flow-card__title">Descubrimiento</h3>
+                    <div class="flow-card__rule"></div>
+                    <p class="flow-card__desc">Analizamos el ecosistema digital de cada cliente. Identificamos oportunidades, necesidades y puntos de fricción para construir sobre una base sólida.</p>
                 </div>
-                <!-- Phase 02: Estrategia (even = content RIGHT, big LEFT) -->
-                <div class="infograph__phase reveal">
-                    <div class="infograph__phase-content">
-                        <span class="infograph__phase-label">Fase 02</span>
-                        <h3 class="infograph__phase-title">Estrategia</h3>
-                        <div class="infograph__phase-rule"></div>
-                        <p class="infograph__phase-desc">Diseñamos hojas de ruta digitales personalizadas. Cada paso está calibrado para maximizar el impacto con los recursos disponibles.</p>
-                    </div>
-                    <div class="infograph__phase-node"></div>
-                    <span class="infograph__phase-big">02</span>
+
+                <!-- Fork 01 → pills -->
+                <div class="flow-fork reveal"><div class="flow-fork__arm flow-fork__arm--left"></div><div class="flow-fork__arm flow-fork__arm--right"></div></div>
+                <div class="flow-pills reveal">
+                    <span class="flow-pill">Análisis</span>
+                    <span class="flow-pill">Auditoría</span>
                 </div>
-                <!-- Phase 03: Ejecución (odd = content LEFT, big RIGHT) -->
-                <div class="infograph__phase reveal">
-                    <div class="infograph__phase-content">
-                        <span class="infograph__phase-label">Fase 03</span>
-                        <h3 class="infograph__phase-title">Ejecución</h3>
-                        <div class="infograph__phase-rule"></div>
-                        <p class="infograph__phase-desc">Construimos, integramos y lanzamos soluciones que funcionan. Desarrollo ágil con entregas incrementales y comunicación constante.</p>
-                    </div>
-                    <div class="infograph__phase-node"></div>
-                    <span class="infograph__phase-big">03</span>
+
+                <!-- Merge → Phase 02 -->
+                <div class="flow-merge reveal"><div class="flow-merge__arm flow-merge__arm--left"></div><div class="flow-merge__arm flow-merge__arm--right"></div></div>
+
+                <!-- Phase 02 -->
+                <div class="flow-card reveal">
+                    <span class="flow-card__num">Fase 02</span>
+                    <h3 class="flow-card__title">Estrategia</h3>
+                    <div class="flow-card__rule"></div>
+                    <p class="flow-card__desc">Diseñamos hojas de ruta digitales personalizadas. Cada paso está calibrado para maximizar el impacto con los recursos disponibles.</p>
                 </div>
-                <!-- Phase 04: Impacto (even = content RIGHT, big LEFT) -->
-                <div class="infograph__phase reveal">
-                    <div class="infograph__phase-content">
-                        <span class="infograph__phase-label">Fase 04</span>
-                        <h3 class="infograph__phase-title">Impacto</h3>
-                        <div class="infograph__phase-rule"></div>
-                        <p class="infograph__phase-desc">Medimos resultados, optimizamos procesos y escalamos lo que funciona. El éxito de nuestros clientes es nuestro mejor indicador.</p>
-                    </div>
-                    <div class="infograph__phase-node"></div>
-                    <span class="infograph__phase-big">04</span>
+
+                <!-- Fork 02 → pills -->
+                <div class="flow-fork reveal"><div class="flow-fork__arm flow-fork__arm--left"></div><div class="flow-fork__arm flow-fork__arm--right"></div></div>
+                <div class="flow-pills reveal">
+                    <span class="flow-pill">Roadmap</span>
+                    <span class="flow-pill">Priorización</span>
+                </div>
+
+                <!-- Merge → Phase 03 -->
+                <div class="flow-merge reveal"><div class="flow-merge__arm flow-merge__arm--left"></div><div class="flow-merge__arm flow-merge__arm--right"></div></div>
+
+                <!-- Phase 03 -->
+                <div class="flow-card reveal">
+                    <span class="flow-card__num">Fase 03</span>
+                    <h3 class="flow-card__title">Ejecución</h3>
+                    <div class="flow-card__rule"></div>
+                    <p class="flow-card__desc">Construimos, integramos y lanzamos soluciones que funcionan. Desarrollo ágil con entregas incrementales y comunicación constante.</p>
+                </div>
+
+                <!-- Fork 03 → pills -->
+                <div class="flow-fork reveal"><div class="flow-fork__arm flow-fork__arm--left"></div><div class="flow-fork__arm flow-fork__arm--right"></div></div>
+                <div class="flow-pills reveal">
+                    <span class="flow-pill">Desarrollo</span>
+                    <span class="flow-pill">Testing</span>
+                </div>
+
+                <!-- Merge → Phase 04 -->
+                <div class="flow-merge reveal"><div class="flow-merge__arm flow-merge__arm--left"></div><div class="flow-merge__arm flow-merge__arm--right"></div></div>
+
+                <!-- Phase 04 -->
+                <div class="flow-card reveal">
+                    <span class="flow-card__num">Fase 04</span>
+                    <h3 class="flow-card__title">Impacto</h3>
+                    <div class="flow-card__rule"></div>
+                    <p class="flow-card__desc">Medimos resultados, optimizamos procesos y escalamos lo que funciona. El éxito de nuestros clientes es nuestro mejor indicador.</p>
+                </div>
+
+                <!-- Final arrow + outcome -->
+                <div class="flow-arrow reveal"><div class="flow-arrow__line"></div><div class="flow-arrow__head"></div></div>
+                <div class="flow-outcome reveal">
+                    <span class="flow-outcome__text">Resultados</span>
                 </div>
             </div>
         </div>
@@ -2174,7 +2211,7 @@
     <section class="contact section-padding" id="contacto">
         <div class="container contact__inner">
             <!-- Logo seal -->
-            <img src="Logo_Crux.PNG" alt="Crux Consulting" class="contact__logo reveal">
+            <img src="Icono Crux Transparente.png" alt="Crux Consulting" class="contact__logo reveal">
 
             <!-- Text -->
             <div class="contact__text reveal">
@@ -2278,7 +2315,7 @@
         animateCursor();
 
         /* Hover states for interactive elements */
-        const hoverTargets = document.querySelectorAll('a, button, .infograph__phase');
+        const hoverTargets = document.querySelectorAll('a, button, .flow-card');
         hoverTargets.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('is-hovering'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('is-hovering'));
