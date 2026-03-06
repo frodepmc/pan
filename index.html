@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>CRUX Consulting — Digitalización operativa para PYMEs en Baleares</title>
+    <title>CRUX Consulting — Digitalización para PYMEs en Baleares</title>
     <meta name="description" content="Ayudamos a PYMEs de Baleares a digitalizar su operativa: facturación, gestión de clientes, automatizaciones y control de negocio. Herramientas que funcionan y que tu equipo usará de verdad.">
     <meta property="og:title" content="CRUX Consulting — Digitalización operativa para PYMEs en Baleares">
     <meta property="og:description" content="Ayudamos a PYMEs de Baleares a digitalizar su operativa: facturación, gestión de clientes, automatizaciones y control de negocio.">
@@ -239,6 +239,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: relative;
+            height: clamp(28px, 3vw, 38px);
+            overflow: visible;
         }
 
         .nav__logo {
@@ -252,8 +255,25 @@
         }
 
         .nav__logo-img {
-            height: clamp(28px, 3vw, 38px);
+            height: clamp(56px, 6vw, 76px);
             width: auto;
+        }
+
+        .nav__ig {
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .nav__ig:hover {
+            color: var(--accent);
+        }
+
+        .nav__ig svg {
+            width: clamp(36px, 4vw, 44px);
+            height: clamp(36px, 4vw, 44px);
+            fill: currentColor;
         }
 
         .nav__links {
@@ -263,7 +283,7 @@
         }
 
         .nav__links a {
-            font-size: 0.75rem;
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 400;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -293,7 +313,7 @@
 
         .nav__menu-btn {
             display: none;
-            font-size: 0.75rem;
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 400;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -1945,16 +1965,25 @@
         }
 
         .footer__social a {
-            font-size: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.04em;
             color: var(--text-muted);
             transition: color 0.3s ease;
         }
 
         .footer__social a:hover {
             color: var(--accent);
+        }
+
+        .footer__social svg {
+            width: clamp(1.3rem, 2vw, 1.6rem);
+            height: clamp(1.3rem, 2vw, 1.6rem);
+            fill: currentColor;
+            flex-shrink: 0;
         }
 
         /* ═══════════════════════════════════════
@@ -2408,6 +2437,7 @@
     <nav class="nav" role="navigation">
         <div class="container nav__inner">
             <a href="#" class="nav__logo"><img src="Icono Crux Transparente.png" alt="Crux Consulting" class="nav__logo-img"></a>
+            <a href="https://www.instagram.com/crux.mallorca" target="_blank" rel="noopener" class="nav__ig" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
             <ul class="nav__links">
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#proceso">Proceso</a></li>
@@ -2518,13 +2548,14 @@
                                     <div class="svc-tier">
                                         <span class="svc-tier__label">Esencial</span>
                                         <p class="svc-tier__desc">Landing page + motor de reservas básico + Google Business</p>
+                                        <span class="svc-block__price">Desde 700 EUR</span>
                                     </div>
                                     <div class="svc-tier svc-tier--pro">
                                         <span class="svc-tier__label">Pro</span>
                                         <p class="svc-tier__desc">Web profesional (2-3 págs) + motor de reservas avanzado con CRM y pagos online</p>
+                                        <span class="svc-block__price">Desde 1.400 EUR</span>
                                     </div>
                                 </div>
-                                <span class="svc-block__price">Desde 700 EUR</span>
 
                                 <div class="svc-accordion__includes">
                                     <span class="svc-accordion__includes-label">Qué incluye</span>
@@ -2832,7 +2863,7 @@
                             <li>SEO local</li>
                             <li>SEM / Google Ads</li>
                         </ul>
-                        <span class="svc-block__price">Desde 250 EUR</span>
+                        <span class="svc-block__price">Desde 450 EUR</span>
                     </div>
                     <div class="services__individual-card">
                         <span class="services__individual-num">02</span>
@@ -2845,7 +2876,7 @@
                             <li>Dashboard ejecutivo</li>
                             <li>Cobros online</li>
                         </ul>
-                        <span class="svc-block__price">Desde 150 EUR</span>
+                        <span class="svc-block__price">Desde 400 EUR</span>
                     </div>
                     <div class="services__individual-card">
                         <span class="services__individual-num">03</span>
@@ -2855,7 +2886,7 @@
                             <li>Chatbot</li>
                             <li>IA en procesos</li>
                         </ul>
-                        <span class="svc-block__price">Desde 200 EUR</span>
+                        <span class="svc-block__price">Desde 400 EUR</span>
                     </div>
                 </div>
             </div>
@@ -3057,8 +3088,7 @@
                 <span class="footer__copy">&copy; 2026</span>
             </div>
             <ul class="footer__social">
-                <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
-                <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://www.instagram.com/crux.mallorca" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Instagram</a></li>
             </ul>
         </div>
     </footer>
