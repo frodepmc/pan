@@ -204,6 +204,17 @@
             transition: background-color 0.5s ease, backdrop-filter 0.5s ease, padding 0.5s ease;
         }
 
+        /* Extend nav background above viewport to cover iOS Safari address-bar collapse gap */
+        .nav::before {
+            content: '';
+            position: absolute;
+            top: -50vh;
+            left: 0;
+            right: 0;
+            height: 50vh;
+            background-color: inherit;
+        }
+
         .nav.is-scrolled {
             background-color: rgba(242, 239, 233, 1);
             backdrop-filter: blur(30px);
@@ -218,6 +229,10 @@
             background-color: transparent;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
+        }
+
+        .nav.menu-open::before {
+            display: none;
         }
 
         .nav__inner {
