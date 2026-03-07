@@ -111,6 +111,7 @@
         /* ═══════════════════════════════════════
            GRAIN & ATMOSPHERE
            ═══════════════════════════════════════ */
+        /* TEMP DISABLED — Safari 26 compositing test
         body::after {
             content: '';
             position: fixed;
@@ -121,10 +122,12 @@
             pointer-events: none;
             z-index: 10000;
         }
+        */
 
         /* ═══════════════════════════════════════
            SCROLL PROGRESS
            ═══════════════════════════════════════ */
+        /* TEMP DISABLED — Safari 26 compositing test
         .scroll-progress {
             position: fixed;
             top: env(safe-area-inset-top, 0px);
@@ -134,6 +137,7 @@
             background: linear-gradient(90deg, var(--accent-deep), var(--accent), var(--accent-hover));
             z-index: 10001;
         }
+        */
 
         /* ═══════════════════════════════════════
            CONTAINER & UTILITIES
@@ -202,10 +206,12 @@
             transition: backdrop-filter 0.5s ease;
         }
 
+        /* TEMP DISABLED — Safari 26 compositing test
         .nav.is-scrolled {
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
         }
+        */
 
         .nav.menu-open {
             background-color: transparent;
