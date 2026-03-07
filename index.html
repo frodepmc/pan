@@ -53,6 +53,9 @@
         body {
             font-family: var(--font-body);
             background-color: var(--bg);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            background-size: 256px 256px;
+            background-attachment: fixed;
             color: var(--text);
             font-size: clamp(0.95rem, 1.1vw, 1.1rem);
             font-weight: 300;
@@ -111,31 +114,21 @@
         /* ═══════════════════════════════════════
            GRAIN & ATMOSPHERE
            ═══════════════════════════════════════ */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 256px 256px;
-            opacity: 0.035;
-            pointer-events: none;
-            z-index: 10000;
-        }
+        /* Grain texture moved to body background-image to avoid
+           a fixed overlay layer that breaks Safari 26 Liquid Glass */
 
         /* ═══════════════════════════════════════
            SCROLL PROGRESS
            ═══════════════════════════════════════ */
-        /* TEMP DISABLED — Safari 26 compositing test
         .scroll-progress {
             position: fixed;
-            top: env(safe-area-inset-top, 0px);
+            top: 0;
             left: 0;
             width: 0%;
             height: 1px;
             background: linear-gradient(90deg, var(--accent-deep), var(--accent), var(--accent-hover));
             z-index: 10001;
         }
-        */
 
         /* ═══════════════════════════════════════
            CONTAINER & UTILITIES
@@ -204,12 +197,10 @@
             transition: backdrop-filter 0.5s ease;
         }
 
-        /* TEMP DISABLED — Safari 26 compositing test
         .nav.is-scrolled {
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
         }
-        */
 
         .nav.menu-open {
             background-color: transparent;
