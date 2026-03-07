@@ -196,8 +196,8 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 2rem 0;
-            padding-top: max(2rem, env(safe-area-inset-top, 0px));
+            padding: 1.2rem 0;
+            padding-top: max(1.2rem, env(safe-area-inset-top, 0px));
             padding-left: env(safe-area-inset-left, 0px);
             padding-right: env(safe-area-inset-right, 0px);
             background-color: var(--bg);
@@ -271,8 +271,8 @@
         }
 
         .nav__ig svg {
-            width: clamp(36px, 4vw, 44px);
-            height: clamp(36px, 4vw, 44px);
+            width: clamp(27px, 3vw, 33px);
+            height: clamp(27px, 3vw, 33px);
             fill: currentColor;
         }
 
@@ -2220,6 +2220,23 @@
 
             .nav__menu-btn {
                 display: block;
+                order: 3;
+            }
+
+            .nav__ig {
+                order: 1;
+            }
+
+            .nav__ig svg {
+                width: 27px;
+                height: 27px;
+            }
+
+            .nav__logo {
+                order: 2;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
             }
 
             .about__details {
