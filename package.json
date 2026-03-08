@@ -1,0 +1,11 @@
+{
+  "name": "cruxmallorca-landing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Landing estatica de CRUX Consulting",
+  "scripts": {
+    "preview": "python3 -m http.server 3000",
+    "check:eol": "git diff --check",
+    "check:seo": "node -e \"const fs=require('fs');const html=fs.readFileSync('index.html','utf8');const required=['<link rel=\\\"canonical\\\"','property=\\\"og:url\\\"','name=\\\"twitter:card\\\"','application/ld+json'];const missing=required.filter((token)=>!html.includes(token));if(missing.length){console.error('Faltan marcadores SEO:', missing.join(', '));process.exit(1)}console.log('Marcadores SEO OK');\""
+  }
+}

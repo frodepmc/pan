@@ -5,13 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUX Consulting — Digitalización para PYMEs en Baleares</title>
     <meta name="description" content="Ayudamos a PYMEs de Baleares a digitalizar su operativa: facturación, gestión de clientes, automatizaciones y control de negocio. Herramientas que funcionan y que tu equipo usará de verdad.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#F2EFE9">
+    <link rel="canonical" href="https://cruxmallorca.es/">
     <meta property="og:title" content="CRUX Consulting — Digitalización operativa para PYMEs en Baleares">
     <meta property="og:description" content="Ayudamos a PYMEs de Baleares a digitalizar su operativa: facturación, gestión de clientes, automatizaciones y control de negocio.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cruxmallorca.es/">
+    <meta property="og:image" content="https://cruxmallorca.es/Logo_Crux.PNG">
+    <meta property="og:site_name" content="CRUX Consulting">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CRUX Consulting — Digitalización para PYMEs en Baleares">
+    <meta name="twitter:description" content="Ayudamos a PYMEs de Baleares a digitalizar su operativa: facturación, gestión de clientes, automatizaciones y control de negocio.">
+    <meta name="twitter:image" content="https://cruxmallorca.es/Logo_Crux.PNG">
+    <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "CRUX Consulting",
+            "url": "https://cruxmallorca.es/",
+            "logo": "https://cruxmallorca.es/Logo_Crux.PNG",
+            "description": "Consultora de digitalización operativa para PYMEs en Baleares.",
+            "foundingDate": "2025",
+            "areaServed": "Baleares",
+            "sameAs": [
+                "https://www.instagram.com/crux.mallorca"
+            ],
+            "numberOfEmployees": {
+                "@type": "QuantitativeValue",
+                "value": 5
+            }
+        }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,700&family=Jost:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ═══════════════════════════════════════
            RESET & VARIABLES
@@ -27,10 +60,10 @@
             --bg-card: #E8E4DD;
             --bg-accent: #1E3A5F;
             --text: #1C1F26;
-            --text-muted: #6B7280;
+            --text-muted: #5F6673;
             --accent: #3869AB;
             --accent-hover: #2C5478;
-            --accent-deep: #5B9BD5;
+            --accent-deep: #78B7EE;
             --border: rgba(107, 114, 128, 0.15);
             --border-strong: rgba(107, 114, 128, 0.25);
             --font-display: 'Jost', 'Futura', 'Helvetica Neue', sans-serif;
@@ -139,9 +172,21 @@
             padding: 0 var(--gutter);
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         .label {
             font-family: var(--font-body);
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.22em;
@@ -181,6 +226,34 @@
             height: 1px;
             background: var(--accent);
             display: block;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .section-media {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .section-media__image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .section-media--contact .section-media__image {
+            object-position: center 30%;
         }
 
         /* ═══════════════════════════════════════
@@ -305,13 +378,16 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.6s var(--ease-out);
+            transition: opacity 0.6s var(--ease-out), visibility 0s linear 0.6s;
         }
 
         .mobile-menu.is-open {
             opacity: 1;
+            visibility: visible;
             pointer-events: all;
+            transition-delay: 0s;
         }
 
         .mobile-menu__links {
@@ -356,7 +432,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            background: url('jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg.jpeg') center center / cover no-repeat;
+            isolation: isolate;
         }
 
         /* Image overlay to blend with site palette */
@@ -657,7 +733,7 @@
             border-bottom: 1px solid var(--border);
             font-family: var(--font-brand);
             position: relative;
-            background: url('oleg-laptev-7jQh3EiS8Bs-unsplash.jpg.jpeg') center center / cover no-repeat;
+            isolation: isolate;
         }
 
         .services::after {
@@ -669,7 +745,7 @@
             z-index: 0;
         }
 
-        .services > * {
+        .services > :not(.section-media) {
             position: relative;
             z-index: 1;
         }
@@ -821,6 +897,10 @@
             cursor: pointer;
             transition: background 0.4s ease, color 0.3s ease;
             position: relative;
+        }
+
+        .svc-accordion__trigger:focus-visible {
+            outline-offset: -2px;
         }
 
         .svc-accordion__trigger:hover {
@@ -1197,13 +1277,13 @@
             position: relative;
             overflow: hidden;
             font-family: var(--font-brand);
-            background: url('agung-pratamah-GUYs3Q6LTFc-unsplash.jpg.jpeg') center center / cover no-repeat;
+            isolation: isolate;
             color: #fff;
         }
 
         .work .container {
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         /* Dark overlay to keep readability */
@@ -1548,7 +1628,7 @@
         .about {
             border-top: 1px solid var(--border);
             position: relative;
-            background: url('milad-fakurian-I4yMBCjVljo-unsplash.jpg.jpeg') center center / cover no-repeat;
+            isolation: isolate;
         }
 
         .about::before {
@@ -1561,7 +1641,7 @@
             z-index: 0;
         }
 
-        .about > * {
+        .about > :not(.section-media) {
             position: relative;
             z-index: 1;
         }
@@ -1641,10 +1721,10 @@
            CONTACT
            ═══════════════════════════════════════ */
         .contact {
-            background: url('sebastian-schuster-ohugy87T1K8-unsplash.jpg.jpeg') center 30% / cover no-repeat;
             color: var(--text);
             position: relative;
             overflow: hidden;
+            isolation: isolate;
         }
 
         .contact::before {
@@ -1751,6 +1831,10 @@
             gap: 0.8rem;
         }
 
+        .contact__channel-btn:focus-visible {
+            outline-offset: -3px;
+        }
+
         .contact__channel-btn:hover {
             color: var(--text);
             background: rgba(56, 105, 171, 0.06);
@@ -1828,6 +1912,21 @@
 
         .contact__field {
             border-bottom: 1px solid var(--border);
+            transition: border-color 0.25s ease;
+        }
+
+        .contact__field:focus-within {
+            border-bottom-color: var(--accent);
+        }
+
+        .contact__label {
+            display: block;
+            padding-top: 1rem;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
 
         .contact__input,
@@ -1840,7 +1939,7 @@
             font-family: var(--font-body);
             font-size: 0.85rem;
             font-weight: 300;
-            padding: 1rem 0;
+            padding: 0.45rem 0 1rem;
         }
 
         .contact__input::placeholder,
@@ -1852,6 +1951,12 @@
         .contact__input:focus,
         .contact__textarea:focus {
             color: var(--text);
+        }
+
+        .contact__input:focus-visible,
+        .contact__textarea:focus-visible {
+            outline: none;
+            box-shadow: inset 0 -2px 0 var(--accent);
         }
 
         .contact__textarea {
@@ -1926,7 +2031,7 @@
         }
 
         .footer__copy {
-            font-size: 0.7rem;
+            font-size: 0.78rem;
             color: var(--text-muted);
             font-weight: 300;
         }
@@ -2434,12 +2539,12 @@
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-            <button class="nav__menu-btn" aria-label="Abrir menú" id="menuBtn">Menú</button>
+            <button type="button" class="nav__menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu" id="menuBtn">Menú</button>
         </div>
     </nav>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menú principal">
         <ul class="mobile-menu__links">
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#proceso">Proceso</a></li>
@@ -2448,8 +2553,13 @@
         </ul>
     </div>
 
+    <main id="main-content">
     <!-- Hero -->
     <section class="hero">
+        <picture class="section-media section-media--hero" aria-hidden="true">
+            <source type="image/webp" srcset="assets/images/hero-bg-960.webp 960w, assets/images/hero-bg-1600.webp 1600w" sizes="100vw">
+            <img class="section-media__image" src="jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg.jpeg" alt="" decoding="async" fetchpriority="high">
+        </picture>
         <div class="container hero__inner">
             <div class="hero__content">
                 <p class="label hero__label">
@@ -2508,6 +2618,10 @@
 
     <!-- Services -->
     <section class="services section-padding" id="servicios">
+        <picture class="section-media section-media--services" aria-hidden="true">
+            <source type="image/webp" srcset="assets/images/services-bg-960.webp 960w, assets/images/services-bg-1600.webp 1600w" sizes="100vw">
+            <img class="section-media__image" src="oleg-laptev-7jQh3EiS8Bs-unsplash.jpg.jpeg" alt="" decoding="async" loading="lazy">
+        </picture>
         <div class="container">
             <div class="services__header reveal">
                 <h2 class="services__title">Nuestros packs</h2>
@@ -2885,6 +2999,10 @@
 
     <!-- Proceso — Infographic -->
     <section class="work section-padding" id="proceso">
+        <picture class="section-media section-media--work" aria-hidden="true">
+            <source type="image/webp" srcset="assets/images/work-bg-960.webp 960w, assets/images/work-bg-1600.webp 1600w" sizes="100vw">
+            <img class="section-media__image" src="agung-pratamah-GUYs3Q6LTFc-unsplash.jpg.jpeg" alt="" decoding="async" loading="lazy">
+        </picture>
         <div class="container">
             <div class="work__header reveal">
                 <h2 class="work__title">Cómo trabajamos</h2>
@@ -2967,6 +3085,10 @@
 
     <!-- About / Manifesto -->
     <section class="about section-padding" id="nosotros">
+        <picture class="section-media section-media--about" aria-hidden="true">
+            <source type="image/webp" srcset="assets/images/about-bg-960.webp 960w, assets/images/about-bg-1600.webp 1600w" sizes="100vw">
+            <img class="section-media__image" src="milad-fakurian-I4yMBCjVljo-unsplash.jpg.jpeg" alt="" decoding="async" loading="lazy">
+        </picture>
         <div class="container">
             <div class="about__manifesto reveal">
                 <blockquote class="about__quote">
@@ -3008,6 +3130,10 @@
 
     <!-- Contact -->
     <section class="contact section-padding" id="contacto">
+        <picture class="section-media section-media--contact" aria-hidden="true">
+            <source type="image/webp" srcset="assets/images/contact-bg-960.webp 960w, assets/images/contact-bg-1600.webp 1600w" sizes="100vw">
+            <img class="section-media__image" src="sebastian-schuster-ohugy87T1K8-unsplash.jpg.jpeg" alt="" decoding="async" loading="lazy">
+        </picture>
         <div class="container contact__inner">
             <!-- Logo seal -->
             <img src="Logo_Crux.PNG" alt="Crux Consulting" class="contact__logo reveal">
@@ -3022,44 +3148,51 @@
             <!-- Form system -->
             <div class="contact__form-system reveal">
                 <div class="contact__channel-btns">
-                    <button class="contact__channel-btn" data-channel="whatsapp">
+                    <button type="button" class="contact__channel-btn" data-channel="whatsapp" aria-controls="form-whatsapp" aria-expanded="false">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         WhatsApp
                     </button>
-                    <button class="contact__channel-btn" data-channel="email">
+                    <button type="button" class="contact__channel-btn" data-channel="email" aria-controls="form-email" aria-expanded="false">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
                         Email
                     </button>
                 </div>
-                <div class="contact__form-panel">
+                <div class="contact__form-panel" id="contactFormPanel" aria-hidden="true">
                     <div class="contact__form-wrap">
                         <div class="contact__form-body">
                             <!-- WhatsApp form -->
                             <form class="contact__form" id="form-whatsapp" hidden>
                                 <div class="contact__field">
-                                    <input type="text" class="contact__input" placeholder="Nombre" required>
+                                    <label class="contact__label" for="whatsapp-name">Nombre</label>
+                                    <input id="whatsapp-name" name="name" type="text" class="contact__input" autocomplete="name" placeholder="Tu nombre" required>
                                 </div>
                                 <div class="contact__field">
-                                    <input type="tel" class="contact__input" placeholder="Teléfono" required>
+                                    <label class="contact__label" for="whatsapp-phone">Teléfono</label>
+                                    <input id="whatsapp-phone" name="phone" type="tel" class="contact__input" autocomplete="tel" placeholder="+34 600 000 000" required>
                                 </div>
                                 <div class="contact__field">
-                                    <textarea class="contact__textarea" placeholder="Cuéntanos tu proyecto..." rows="3"></textarea>
+                                    <label class="contact__label" for="whatsapp-message">Proyecto</label>
+                                    <textarea id="whatsapp-message" name="message" class="contact__textarea" placeholder="Cuéntanos tu proyecto..." rows="3"></textarea>
                                 </div>
                                 <button type="submit" class="contact__submit">Enviar por WhatsApp</button>
                             </form>
                             <!-- Email form -->
                             <form class="contact__form" id="form-email" hidden>
                                 <div class="contact__field">
-                                    <input type="text" class="contact__input" placeholder="Nombre" required>
+                                    <label class="contact__label" for="email-name">Nombre</label>
+                                    <input id="email-name" name="name" type="text" class="contact__input" autocomplete="name" placeholder="Tu nombre" required>
                                 </div>
                                 <div class="contact__field">
-                                    <input type="email" class="contact__input" placeholder="Email" required>
+                                    <label class="contact__label" for="email-address">Email</label>
+                                    <input id="email-address" name="email" type="email" class="contact__input" autocomplete="email" placeholder="tu@empresa.com" required>
                                 </div>
                                 <div class="contact__field">
-                                    <input type="text" class="contact__input" placeholder="Asunto">
+                                    <label class="contact__label" for="email-subject">Asunto</label>
+                                    <input id="email-subject" name="subject" type="text" class="contact__input" autocomplete="off" placeholder="Qué necesitas resolver">
                                 </div>
                                 <div class="contact__field">
-                                    <textarea class="contact__textarea" placeholder="Cuéntanos tu proyecto..." rows="3"></textarea>
+                                    <label class="contact__label" for="email-message">Proyecto</label>
+                                    <textarea id="email-message" name="message" class="contact__textarea" placeholder="Cuéntanos tu proyecto..." rows="3"></textarea>
                                 </div>
                                 <button type="submit" class="contact__submit">Enviar email</button>
                             </form>
@@ -3069,6 +3202,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -3090,6 +3224,8 @@
         const cursor = document.getElementById('cursor');
         let cursorX = 0, cursorY = 0;
         let currentX = 0, currentY = 0;
+        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
         document.addEventListener('mousemove', (e) => {
             cursorX = e.clientX;
@@ -3119,6 +3255,10 @@
             el.addEventListener('mouseleave', () => cursor.classList.remove('is-hovering'));
         });
 
+        function getFocusableElements(container) {
+            return [...container.querySelectorAll(focusableSelector)].filter((el) => !el.hidden && !el.closest('[hidden]') && !el.closest('[inert]'));
+        }
+
         /* ═══════════════════════════════════════
            SCROLL PROGRESS
            ═══════════════════════════════════════ */
@@ -3127,7 +3267,7 @@
         function updateProgress() {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
             progressBar.style.width = progress + '%';
         }
 
@@ -3144,12 +3284,21 @@
             }
         }
 
+        let scrollTicking = false;
+
+        function syncScrollUi() {
+            updateProgress();
+            updateNav();
+            scrollTicking = false;
+        }
+
         window.addEventListener('scroll', () => {
-            requestAnimationFrame(() => {
-                updateProgress();
-                updateNav();
-            });
+            if (scrollTicking) return;
+            scrollTicking = true;
+            requestAnimationFrame(syncScrollUi);
         }, { passive: true });
+
+        window.addEventListener('pageshow', syncScrollUi);
 
         /* ═══════════════════════════════════════
            SCROLL REVEAL
@@ -3185,23 +3334,62 @@
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = mobileMenu.querySelectorAll('a');
+        let lastFocusedElement = null;
+
+        mobileMenu.inert = true;
+
+        function trapMenuFocus(event) {
+            if (!mobileMenu.classList.contains('is-open') || event.key !== 'Tab') return;
+
+            const focusableElements = getFocusableElements(mobileMenu);
+            if (focusableElements.length === 0) {
+                event.preventDefault();
+                return;
+            }
+
+            const first = focusableElements[0];
+            const last = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
 
         function openMenu() {
+            lastFocusedElement = document.activeElement;
+            mobileMenu.inert = false;
             mobileMenu.classList.add('is-open');
             nav.classList.add('menu-open');
             mobileMenu.setAttribute('aria-hidden', 'false');
             menuBtn.setAttribute('aria-expanded', 'true');
+            menuBtn.setAttribute('aria-label', 'Cerrar menú');
             menuBtn.textContent = 'Cerrar';
             document.body.style.overflow = 'hidden';
+
+            const [firstLink] = getFocusableElements(mobileMenu);
+            if (firstLink) {
+                firstLink.focus();
+            }
         }
 
-        function closeMenu() {
+        function closeMenu(options = {}) {
+            const { returnFocus = true } = options;
             mobileMenu.classList.remove('is-open');
             nav.classList.remove('menu-open');
             mobileMenu.setAttribute('aria-hidden', 'true');
             menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('aria-label', 'Abrir menú');
             menuBtn.textContent = 'Menú';
             document.body.style.overflow = '';
+            mobileMenu.inert = true;
+
+            if (returnFocus && lastFocusedElement instanceof HTMLElement) {
+                lastFocusedElement.focus();
+            }
         }
 
         function toggleMenu() {
@@ -3213,12 +3401,14 @@
         }
 
         menuBtn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+        mobileLinks.forEach(link => link.addEventListener('click', () => closeMenu({ returnFocus: false })));
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
                 closeMenu();
             }
+
+            trapMenuFocus(e);
         });
 
         /* ═══════════════════════════════════════
@@ -3237,7 +3427,7 @@
 
                     window.scrollTo({
                         top: targetPosition,
-                        behavior: 'smooth'
+                        behavior: reducedMotionQuery.matches ? 'auto' : 'smooth'
                     });
                 }
             });
@@ -3262,43 +3452,101 @@
             grid.style.setProperty('--row-split', splitPx + 'px');
         }
 
+        let accordionIndex = 0;
+
+        function syncAccordionState(acc) {
+            const trigger = acc.querySelector(':scope > .svc-accordion__trigger');
+            const panel = acc.querySelector(':scope > .svc-accordion__panel');
+            if (!trigger || !panel) return;
+
+            const isOpen = acc.classList.contains('is-open');
+            trigger.setAttribute('aria-expanded', String(isOpen));
+            panel.setAttribute('aria-hidden', String(!isOpen));
+            panel.inert = !isOpen;
+        }
+
         document.querySelectorAll('[data-accordion]').forEach(acc => {
             const trigger = acc.querySelector(':scope > .svc-accordion__trigger');
-            if (!trigger) return;
+            const panel = acc.querySelector(':scope > .svc-accordion__panel');
+            if (!trigger || !panel) return;
+
+            accordionIndex += 1;
+            const triggerId = trigger.id || `accordion-trigger-${accordionIndex}`;
+            const panelId = panel.id || `accordion-panel-${accordionIndex}`;
+
+            trigger.id = triggerId;
+            trigger.type = 'button';
+            trigger.setAttribute('aria-controls', panelId);
+
+            panel.id = panelId;
+            panel.setAttribute('role', 'region');
+            panel.setAttribute('aria-labelledby', triggerId);
+
+            syncAccordionState(acc);
+
             trigger.addEventListener('click', () => {
-                const isOpen = acc.classList.contains('is-open');
                 acc.classList.toggle('is-open');
-                trigger.setAttribute('aria-expanded', !isOpen);
-                // Update diagonal line after accordion transition
+                syncAccordionState(acc);
                 setTimeout(updateRowSplit, 350);
             });
         });
 
+        function handleResize() {
+            updateRowSplit();
+            syncScrollUi();
+
+            if (window.innerWidth > 480 && mobileMenu.classList.contains('is-open')) {
+                closeMenu({ returnFocus: false });
+            }
+        }
+
         // Initial + resize
         updateRowSplit();
-        window.addEventListener('resize', updateRowSplit);
+        syncScrollUi();
+        window.addEventListener('resize', handleResize);
 
         /* ═══════════════════════════════════════
            CONTACT FORM CHANNEL TOGGLE
            ═══════════════════════════════════════ */
-        document.querySelectorAll('.contact__channel-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const channel = btn.dataset.channel;
-                const panel = document.querySelector('.contact__form-panel');
-                const wasActive = btn.classList.contains('is-active');
+        const contactPanel = document.getElementById('contactFormPanel');
+        const channelButtons = document.querySelectorAll('.contact__channel-btn');
+        const contactForms = document.querySelectorAll('.contact__form');
 
-                document.querySelectorAll('.contact__channel-btn').forEach(b => b.classList.remove('is-active'));
-                document.querySelectorAll('.contact__form').forEach(f => f.hidden = true);
+        function setActiveChannel(channel, options = {}) {
+            const { shouldFocus = false } = options;
+            const isOpen = Boolean(channel);
 
-                if (wasActive) {
-                    panel.classList.remove('is-open');
-                } else {
-                    btn.classList.add('is-active');
-                    document.getElementById('form-' + channel).hidden = false;
-                    panel.classList.add('is-open');
+            channelButtons.forEach((button) => {
+                const active = button.dataset.channel === channel;
+                button.classList.toggle('is-active', active);
+                button.setAttribute('aria-expanded', String(active));
+            });
+
+            contactForms.forEach((form) => {
+                form.hidden = form.id !== `form-${channel}`;
+            });
+
+            contactPanel.classList.toggle('is-open', isOpen);
+            contactPanel.setAttribute('aria-hidden', String(!isOpen));
+            contactPanel.inert = !isOpen;
+
+            if (isOpen && shouldFocus) {
+                const activeForm = document.getElementById(`form-${channel}`);
+                const firstField = activeForm ? activeForm.querySelector(focusableSelector) : null;
+                if (firstField instanceof HTMLElement) {
+                    firstField.focus();
                 }
+            }
+        }
+
+        channelButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const nextChannel = btn.classList.contains('is-active') ? null : btn.dataset.channel;
+                setActiveChannel(nextChannel, { shouldFocus: Boolean(nextChannel) });
             });
         });
+
+        setActiveChannel(null);
     </script>
 </body>
 </html>
