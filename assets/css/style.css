@@ -2634,7 +2634,7 @@ textarea:focus-visible {
 
 .svc-hero__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 2fr;
     gap: clamp(2rem, 4vw, 4rem);
     align-items: center;
 }
