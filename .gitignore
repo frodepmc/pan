@@ -21,3 +21,9 @@ npm-debug.log*
 .env
 .env.local
 .env.*.local
+
+# Backups
+index.backup-*.html
+
+# Debug / testing
+.playwright-mcp/
