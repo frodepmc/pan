@@ -339,6 +339,95 @@ function initSmoothScroll() {
 }
 
 /* ═══════════════════════════════════════
+   PROJECT LIGHTBOX
+   ═══════════════════════════════════════ */
+const lightbox = document.getElementById('imageLightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxTitle = document.getElementById('lightboxTitle');
+const lightboxTriggers = [...document.querySelectorAll('[data-lightbox="project"]')];
+const lightboxCloseControls = lightbox ? [...lightbox.querySelectorAll('[data-lightbox-close]')] : [];
+const lightboxMaskedElements = [
+    nav,
+    mobileMenu,
+    document.getElementById('main-content'),
+    document.querySelector('.footer'),
+].filter(Boolean);
+
+let lastLightboxTrigger = null;
+
+function syncLightboxMaskedContent(isMasked) {
+    lightboxMaskedElements.forEach((element) => {
+        if (!element || element === lightbox) return;
+        setInertState(element, isMasked);
+        if (isMasked) {
+            element.setAttribute('aria-hidden', 'true');
+        } else {
+            element.removeAttribute('aria-hidden');
+        }
+    });
+}
+
+function openLightbox(trigger) {
+    if (!lightbox || !lightboxImage || !lightboxTitle) return;
+
+    const imageSrc = trigger.getAttribute('href');
+    if (!imageSrc) return;
+
+    lastLightboxTrigger = trigger;
+    lightboxImage.src = imageSrc;
+    lightboxImage.alt = trigger.dataset.lightboxAlt || trigger.querySelector('img')?.alt || '';
+    lightboxTitle.textContent = trigger.dataset.lightboxTitle || 'Vista ampliada';
+    lightbox.hidden = false;
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    syncLightboxMaskedContent(true);
+
+    const closeButton = lightbox.querySelector('.lightbox__close');
+    if (closeButton instanceof HTMLElement) {
+        closeButton.focus();
+    }
+}
+
+function closeLightbox(options = {}) {
+    const { returnFocus = true } = options;
+    if (!lightbox || lightbox.hidden) return;
+
+    lightbox.hidden = true;
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImage.removeAttribute('src');
+    lightboxImage.alt = '';
+    document.body.style.overflow = '';
+    syncLightboxMaskedContent(false);
+
+    if (returnFocus && lastLightboxTrigger instanceof HTMLElement) {
+        lastLightboxTrigger.focus();
+    }
+}
+
+function initProjectLightbox() {
+    if (!lightbox || !lightboxImage || !lightboxTriggers.length) return;
+
+    lightbox.setAttribute('aria-hidden', 'true');
+
+    lightboxTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            openLightbox(trigger);
+        });
+    });
+
+    lightboxCloseControls.forEach((control) => {
+        control.addEventListener('click', () => closeLightbox());
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !lightbox.hidden) {
+            closeLightbox();
+        }
+    });
+}
+
+/* ═══════════════════════════════════════
    ACCORDIONS
    ═══════════════════════════════════════ */
 function updateRowSplit() {
@@ -635,6 +724,7 @@ initCustomCursor();
 initRevealAnimations();
 initMobileMenu();
 initSmoothScroll();
+initProjectLightbox();
 initAccordions();
 initContactForms();
 initActiveNavLink();

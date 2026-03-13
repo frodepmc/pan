@@ -284,6 +284,117 @@
         </div>
     </section>
 
+    <!-- Nuestros trabajos -->
+    <section class="projects section-padding" id="trabajos">
+        <div class="container">
+            <div class="projects__intro reveal">
+                <div class="projects__intro-copy">
+                    <p class="label"><span class="line-accent"></span>Nuestros trabajos</p>
+                    <h2 class="projects__title">Dos ejemplos reales de cómo toma forma nuestro trabajo.</h2>
+                </div>
+                <p class="projects__lead">Pulsa sobre cada pieza para verla en grande.</p>
+            </div>
+
+            <div class="projects__grid">
+                <article class="project-card project-card--web reveal">
+                    <a
+                        class="project-card__link"
+                        href="assets/images/trabajos/bytebalear-desktop@2x.png"
+                        data-lightbox="project"
+                        data-lightbox-alt="Vista ampliada del trabajo web de Byte Balear"
+                        data-lightbox-title="Byte Balear"
+                    >
+                        <div class="project-card__header">
+                            <div>
+                                <span class="project-card__eyebrow">Web completa</span>
+                                <h3 class="project-card__title">Byte Balear <span class="project-card__title-meta">- bytebalear.es</span></h3>
+                            </div>
+                            <span class="project-card__zoom">Abrir para ver en grande</span>
+                        </div>
+
+                        <p class="project-card__desc">Proyecto web con versión desktop y mobile, diseñado para presentar el negocio con claridad desde el primer vistazo.</p>
+
+                        <figure class="project-card__media">
+                            <picture>
+                                <source
+                                    media="(max-width: 480px)"
+                                    srcset="assets/images/trabajos/bytebalear-mobile@2x.png"
+                                >
+                                <source
+                                    media="(max-width: 1024px)"
+                                    srcset="assets/images/trabajos/bytebalear-tablet@2x.png"
+                                >
+                                <img
+                                    class="project-card__image"
+                                    src="assets/images/trabajos/bytebalear-desktop@2x.png"
+                                    alt="Vista previa del proyecto Byte Balear"
+                                    width="1248"
+                                    height="1040"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+                            </picture>
+                        </figure>
+
+                        <div class="project-card__footer">
+                            <span>Proyecto real</span>
+                            <span>Desktop + mobile</span>
+                            <span>Pulsa para ampliar</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="project-card project-card--landing reveal">
+                    <a
+                        class="project-card__link"
+                        href="assets/images/trabajos/rayofitness-desktop@2x.png"
+                        data-lightbox="project"
+                        data-lightbox-alt="Vista ampliada del trabajo landing para Rayo Fitness"
+                        data-lightbox-title="Rayo Fitness"
+                    >
+                        <div class="project-card__header">
+                            <div>
+                                <span class="project-card__eyebrow">Landing</span>
+                                <h3 class="project-card__title">Rayo Fitness <span class="project-card__title-meta">- rayofitness.es</span></h3>
+                            </div>
+                            <span class="project-card__zoom">Abrir para ver en grande</span>
+                        </div>
+
+                        <p class="project-card__desc">Landing centrada en la captación, con una estructura directa y una lectura muy clara en desktop y mobile.</p>
+
+                        <figure class="project-card__media project-card__media--framed">
+                            <picture>
+                                <source
+                                    media="(max-width: 480px)"
+                                    srcset="assets/images/trabajos/rayofitness-mobile@2x.png"
+                                >
+                                <source
+                                    media="(max-width: 1024px)"
+                                    srcset="assets/images/trabajos/rayofitness-tablet@2x.png"
+                                >
+                                <img
+                                    class="project-card__image"
+                                    src="assets/images/trabajos/rayofitness-desktop@2x.png"
+                                    alt="Vista previa del proyecto Rayo Fitness"
+                                    width="1248"
+                                    height="1040"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+                            </picture>
+                        </figure>
+
+                        <div class="project-card__footer">
+                            <span>Proyecto real</span>
+                            <span>Desktop + mobile</span>
+                            <span>Pulsa para ampliar</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Proceso — Infographic -->
     <section class="work section-padding" id="proceso">
         <picture class="section-media section-media--work" aria-hidden="true">
@@ -509,6 +620,17 @@
             </ul>
         </div>
     </footer>
+
+    <div class="lightbox" id="imageLightbox" hidden>
+        <div class="lightbox__backdrop" data-lightbox-close></div>
+        <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+            <div class="lightbox__topbar">
+                <p class="lightbox__title" id="lightboxTitle">Vista ampliada</p>
+                <button type="button" class="lightbox__close" data-lightbox-close aria-label="Cerrar imagen">Cerrar</button>
+            </div>
+            <img class="lightbox__image" id="lightboxImage" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="">
+        </div>
+    </div>
 
     <script src="assets/js/main.js" defer></script>
 </body>
