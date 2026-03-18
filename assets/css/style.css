@@ -467,7 +467,13 @@ textarea:focus-visible {
 }
 
 .hero__content {
-    --hero-cta-anchor: 76%;
+    --hero-cta-anchor-factor: 0.76;
+    --hero-cta-anchor: calc(var(--hero-cta-anchor-factor) * 100%);
+    --hero-descriptor-width: min(21rem, 44vw);
+    --hero-screen-gap: max((100vw - var(--container)) / 2, 0px);
+    --hero-content-left: calc(var(--hero-screen-gap) + var(--gutter));
+    --hero-content-width: calc(min(100vw, var(--container)) - (2 * var(--gutter)));
+    --hero-cta-screen-x: calc(var(--hero-content-left) + (var(--hero-cta-anchor-factor) * var(--hero-content-width)));
     position: relative;
     z-index: 2;
     padding-top: clamp(7.5rem, 10vh, 9rem);
@@ -527,18 +533,23 @@ textarea:focus-visible {
 }
 
 .hero__descriptor {
-    width: min(21rem, 44vw);
+    width: var(--hero-descriptor-width);
     max-width: none;
-    margin-left: 0;
+    margin-left: calc((var(--hero-cta-screen-x) / 2) - var(--hero-content-left) - (var(--hero-descriptor-width) / 2));
     font-size: clamp(1.05rem, 1.3vw, 1.25rem);
     line-height: 1.6;
     font-weight: 300;
     opacity: 0;
     animation: fadeUp 1s var(--ease-out) 0.9s forwards;
-    position: relative;
-    left: calc(var(--hero-cta-anchor) / 2);
-    transform: translateX(-50%);
     text-align: center;
+}
+
+.hero__desc-accent {
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    margin: 0 auto 1rem;
+    background: rgba(56, 105, 171, 0.7);
 }
 
 .hero__desc-punch {
