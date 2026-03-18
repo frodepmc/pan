@@ -238,6 +238,14 @@ textarea:focus-visible {
     object-position: center 30%;
 }
 
+.section-media--work .section-media__image {
+    object-position: center 42%;
+}
+
+.section-media--projects .section-media__image {
+    object-position: center 62%;
+}
+
 /* ═══════════════════════════════════════
    NAVIGATION
    ═══════════════════════════════════════ */
@@ -868,8 +876,7 @@ textarea:focus-visible {
     margin-top: 1.8rem;
 }
 
-.services-showcase__cta,
-.services-proof__link {
+.services-showcase__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -885,8 +892,7 @@ textarea:focus-visible {
     transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-out);
 }
 
-.services-showcase__cta:hover,
-.services-proof__link:hover {
+.services-showcase__cta:hover {
     background: var(--accent-hover);
     border-color: var(--accent-hover);
     transform: translateY(-2px);
@@ -1063,79 +1069,6 @@ textarea:focus-visible {
     color: var(--accent);
 }
 
-.services-proof {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(1.25rem, 2.4vw, 2.2rem);
-    padding: clamp(1.5rem, 2.8vw, 2.4rem);
-    border: 1px solid rgba(56, 105, 171, 0.16);
-    background: linear-gradient(135deg, rgba(56, 105, 171, 0.08) 0%, rgba(255, 255, 255, 0.55) 100%);
-}
-
-.services-proof__header {
-    display: grid;
-    gap: 0.45rem;
-    max-width: 54rem;
-}
-
-.services-proof__eyebrow {
-    margin-bottom: 0.8rem;
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-}
-
-.services-proof__title {
-    max-width: 30ch;
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 2.5vw, 2rem);
-    font-weight: 400;
-    line-height: 1.14;
-    letter-spacing: -0.02em;
-}
-
-.services-proof__points {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-}
-
-.services-proof__point {
-    min-height: 100%;
-    padding: 1rem 1.1rem;
-    border: 1px solid rgba(56, 105, 171, 0.12);
-    background: rgba(255, 255, 255, 0.55);
-}
-
-.services-proof__point-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    margin-bottom: 0.8rem;
-    border: 1px solid rgba(56, 105, 171, 0.22);
-    border-radius: 50%;
-    font-size: 0.66rem;
-    font-style: italic;
-    color: var(--accent);
-}
-
-.services-proof__point p {
-    color: var(--text);
-    font-size: 0.84rem;
-    font-weight: 300;
-    line-height: 1.65;
-}
-
-.services-proof__link {
-    grid-column: 1 / -1;
-    justify-self: flex-start;
-}
-
 /* ═══════════════════════════════════════
    NUESTROS TRABAJOS
    ═══════════════════════════════════════ */
@@ -1150,10 +1083,10 @@ textarea:focus-visible {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(180deg, rgba(56, 105, 171, 0.06) 0%, rgba(242, 239, 233, 0) 24%, rgba(56, 105, 171, 0.03) 100%),
+        linear-gradient(180deg, rgba(242, 239, 233, 0.74) 0%, rgba(242, 239, 233, 0.56) 20%, rgba(242, 239, 233, 0.42) 100%),
         linear-gradient(90deg, rgba(56, 105, 171, 0.04) 1px, transparent 1px);
     background-size: auto, 160px 100%;
-    opacity: 0.55;
+    opacity: 1;
     pointer-events: none;
     z-index: 0;
 }
@@ -2910,14 +2843,6 @@ html.no-js .nav__menu-btn {
         grid-template-columns: 1fr 1fr;
     }
 
-    .services-proof {
-        grid-template-columns: 1fr;
-    }
-
-    .services-proof__points {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .projects__intro {
         grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
         align-items: end;
@@ -3202,8 +3127,7 @@ html.no-js .nav__menu-btn {
 
 @media (max-width: 767px) {
     .services-showcase__title,
-    .services-teaser__title,
-    .services-proof__title {
+    .services-teaser__title {
         max-width: none;
     }
 
@@ -3216,16 +3140,11 @@ html.no-js .nav__menu-btn {
         align-items: stretch;
     }
 
-    .services-showcase__cta,
-    .services-proof__link {
+    .services-showcase__cta {
         width: 100%;
     }
 
     .services-teaser-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .services-proof__points {
         grid-template-columns: 1fr;
     }
 
