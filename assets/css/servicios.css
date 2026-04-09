@@ -2,6 +2,11 @@
    CRUX — Servicios page · Catálogo + Configurador
    ═══════════════════════════════════════ */
 
+/* ─── Sticky fix: ensure html overflow-x doesn't break sticky ─── */
+html {
+    overflow-x: clip;
+}
+
 /* ─── Full-page backdrop (hero → asesoria) ─── */
 .services-backdrop {
     position: relative;
@@ -30,7 +35,10 @@
     object-position: center top;
 }
 
-/* ─── CTA block: no logo, centered body, visible SVG bg ─── */
+/* ─── CTA block: no logo, centered body, visible SVG bg, spacing ─── */
+.svc-cta {
+    margin-top: clamp(3rem, 6vh, 5rem);
+}
 .svc-cta::before {
     background: linear-gradient(110deg, rgba(242, 239, 233, 0.55) 0%, rgba(242, 239, 233, 0.4) 45%, rgba(242, 239, 233, 0.5) 100%);
 }
@@ -61,7 +69,7 @@
     border: 1px solid var(--border);
     background: rgba(255, 255, 255, 0.3);
 }
-.alacarte__branch[open] {
+.alacarte__branch.is-open {
     background: rgba(255, 255, 255, 0.45);
 }
 .alacarte__branch-header {
@@ -69,27 +77,47 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 1rem;
+    width: 100%;
     padding: clamp(1.1rem, 2vw, 1.5rem) clamp(1.2rem, 2vw, 1.8rem);
     cursor: pointer;
-    list-style: none;
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
     transition: background 0.3s ease;
 }
-.alacarte__branch-header::-webkit-details-marker { display: none; }
-.alacarte__branch-header::marker { display: none; content: ''; }
 .alacarte__branch-header:hover {
     background: rgba(56, 105, 171, 0.04);
 }
-.alacarte__branch-header::after {
-    content: '+';
-    font-family: var(--font-brand);
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--accent);
+.alacarte__branch-icon {
     flex-shrink: 0;
-    transition: transform 0.3s var(--ease-out);
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: transform 0.4s var(--ease-out);
 }
-.alacarte__branch[open] > .alacarte__branch-header::after {
-    content: '−';
+.alacarte__branch-icon::before,
+.alacarte__branch-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--accent);
+    border-radius: 1px;
+    transition: transform 0.4s var(--ease-out), opacity 0.3s ease;
+}
+.alacarte__branch-icon::before {
+    width: 14px; height: 1.5px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+.alacarte__branch-icon::after {
+    width: 1.5px; height: 14px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+.alacarte__branch.is-open .alacarte__branch-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
 }
 .alacarte__branch-title {
     font-family: var(--font-display);
@@ -103,32 +131,40 @@
     font-style: italic;
 }
 .alacarte__branch-items {
-    padding: 0 clamp(1.2rem, 2vw, 1.8rem) clamp(1rem, 1.5vw, 1.4rem);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    padding: clamp(0.8rem, 1.2vw, 1.2rem) clamp(1.2rem, 2vw, 1.8rem) clamp(1rem, 1.5vw, 1.4rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(0.8rem, 1.2vw, 1rem);
 }
 .alacarte__item {
     display: flex;
-    align-items: center;
-    gap: clamp(0.8rem, 1.5vw, 1.5rem);
-    padding: clamp(0.8rem, 1.2vw, 1rem) 0;
-    border-top: 1px solid var(--border);
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: clamp(1rem, 1.4vw, 1.3rem);
+    border: 1px solid var(--border);
+    background: var(--config-card-bg, rgba(255, 255, 255, 0.4));
+    transition: transform 0.3s var(--ease-out), border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+.alacarte__item:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 .alacarte__item-info {
     flex: 1;
     min-width: 0;
 }
 .alacarte__item-title {
-    font-size: clamp(0.88rem, 1vw, 0.95rem);
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
     font-weight: 500;
     color: var(--text);
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.25rem;
 }
 .alacarte__item-desc {
     font-size: 0.78rem;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.55;
 }
 .alacarte__item-price {
     font-family: var(--font-brand);
@@ -137,11 +173,11 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text);
-    flex-shrink: 0;
-    white-space: nowrap;
+    margin-top: auto;
+    padding-top: 0.4rem;
 }
 button.alacarte__cta {
-    flex-shrink: 0;
+    align-self: flex-start;
     padding: 0.5rem 0.9rem;
     font-family: var(--font-brand);
     font-size: 0.6rem;
@@ -152,11 +188,50 @@ button.alacarte__cta {
     background: rgba(56, 105, 171, 0.06);
     border: 1px solid rgba(56, 105, 171, 0.2);
     cursor: pointer;
-    transition: background 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
 }
 button.alacarte__cta:hover {
     background: rgba(56, 105, 171, 0.12);
     border-color: var(--accent);
+}
+button.alacarte__cta:active {
+    transform: scale(0.97);
+}
+
+/* Accordion body: height animated via JS-set --branch-h */
+.alacarte__branch-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s var(--ease-out);
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.alacarte__branch.is-open .alacarte__branch-body {
+    max-height: var(--branch-h, 600px);
+}
+
+/* Peek state: partial reveal with fade mask */
+.alacarte__branch.is-peeking .alacarte__branch-body {
+    max-height: 90px;
+    -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
+    mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
+}
+/* Transition from peek → open: mask dissolves, height grows */
+.alacarte__branch.is-peeking.is-open .alacarte__branch-body {
+    max-height: var(--branch-h, 600px);
+    -webkit-mask-image: none;
+    mask-image: none;
+    transition: max-height 0.5s var(--ease-out), mask-image 0.4s ease 0.1s, -webkit-mask-image 0.4s ease 0.1s;
+}
+
+/* Scroll hint bounce */
+@keyframes peekNudge {
+    0%, 100% { transform: translateY(0); }
+    30%      { transform: translateY(-5px); }
+    50%      { transform: translateY(-2px); }
+}
+.alacarte__branch.is-nudging {
+    animation: peekNudge 0.6s var(--ease-out) 1;
 }
 
 @media (max-width: 700px) {
@@ -164,17 +239,8 @@ button.alacarte__cta:hover {
         flex-direction: column;
         gap: 0.3rem;
     }
-    .alacarte__item {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    .alacarte__item-price {
-        order: 3;
-    }
-    button.alacarte__cta {
-        order: 4;
-        width: 100%;
-        justify-content: center;
+    .alacarte__branch-items {
+        grid-template-columns: 1fr;
     }
 }
 

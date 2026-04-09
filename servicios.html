@@ -317,114 +317,123 @@
             </div>
             <div class="alacarte__branches">
                 <!-- Rama 1: Marca y contenido -->
-                <details class="alacarte__branch reveal" open>
-                    <summary class="alacarte__branch-header">
+                <div class="alacarte__branch reveal" data-branch="marca">
+                    <button type="button" class="alacarte__branch-header" aria-expanded="false" aria-controls="branch-marca">
                         <span class="alacarte__branch-title">Marca y contenido</span>
                         <span class="alacarte__branch-desc">Identidad, voz y alcance de tu proyecto</span>
-                    </summary>
-                    <div class="alacarte__branch-items">
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Branding / identidad visual</h3>
-                                <p class="alacarte__item-desc">Naming, logo, sistema visual y guías de aplicación.</p>
+                        <span class="alacarte__branch-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="alacarte__branch-body" id="branch-marca">
+                        <div class="alacarte__branch-items">
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Branding / identidad visual</h3>
+                                    <p class="alacarte__item-desc">Naming, logo, sistema visual y guías de aplicación.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 800 €</span>
+                                <button type="button" data-add-tx="T-branding" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 800 €</span>
-                            <button type="button" data-add-tx="T-branding" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Copywriting</h3>
-                                <p class="alacarte__item-desc">Textos web profesionales orientados a conversión.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Copywriting</h3>
+                                    <p class="alacarte__item-desc">Textos web profesionales orientados a conversión.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 180 €/pág</span>
+                                <button type="button" data-add-tx="T-copy" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 180 €/pág</span>
-                            <button type="button" data-add-tx="T-copy" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Multiidioma</h3>
-                                <p class="alacarte__item-desc">Setup técnico y traducción editorial por idioma.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Multiidioma</h3>
+                                    <p class="alacarte__item-desc">Setup técnico y traducción editorial por idioma.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 600 €/idioma</span>
+                                <button type="button" data-add-tx="T-multilang" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 600 €/idioma</span>
-                            <button type="button" data-add-tx="T-multilang" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                         </div>
                     </div>
-                </details>
+                </div>
 
                 <!-- Rama 2: Visibilidad y captación -->
-                <details class="alacarte__branch reveal">
-                    <summary class="alacarte__branch-header">
+                <div class="alacarte__branch reveal" data-branch="visibilidad">
+                    <button type="button" class="alacarte__branch-header" aria-expanded="false" aria-controls="branch-visibilidad">
                         <span class="alacarte__branch-title">Visibilidad y captación</span>
                         <span class="alacarte__branch-desc">Que te encuentren y conviertan</span>
-                    </summary>
-                    <div class="alacarte__branch-items">
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Auditoría SEO inicial</h3>
-                                <p class="alacarte__item-desc">Diagnóstico técnico, on-page y plan de mejora.</p>
+                        <span class="alacarte__branch-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="alacarte__branch-body" id="branch-visibilidad">
+                        <div class="alacarte__branch-items">
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Auditoría SEO inicial</h3>
+                                    <p class="alacarte__item-desc">Diagnóstico técnico, on-page y plan de mejora.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 350 €</span>
+                                <button type="button" data-add-tx="T-seoaudit" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 350 €</span>
-                            <button type="button" data-add-tx="T-seoaudit" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">SEO mensual</h3>
-                                <p class="alacarte__item-desc">Contenidos, optimizaciones técnicas, link building y reporting.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">SEO mensual</h3>
+                                    <p class="alacarte__item-desc">Contenidos, optimizaciones técnicas, link building y reporting.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 350 €/mes</span>
+                                <button type="button" data-add-tx="T-seomensual" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 350 €/mes</span>
-                            <button type="button" data-add-tx="T-seomensual" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">IA básica (chatbot LLM)</h3>
-                                <p class="alacarte__item-desc">Asistente conversacional con datos de tu negocio.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">IA básica (chatbot LLM)</h3>
+                                    <p class="alacarte__item-desc">Asistente conversacional con datos de tu negocio.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 800 €</span>
+                                <button type="button" data-add-tx="T-ia" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 800 €</span>
-                            <button type="button" data-add-tx="T-ia" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Automatizaciones no-code</h3>
-                                <p class="alacarte__item-desc">Flujos con Zapier o Make para conectar web, CRM y email.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Automatizaciones no-code</h3>
+                                    <p class="alacarte__item-desc">Flujos con Zapier o Make para conectar web, CRM y email.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 350 €</span>
+                                <button type="button" data-add-tx="T-auto" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 350 €</span>
-                            <button type="button" data-add-tx="T-auto" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                         </div>
                     </div>
-                </details>
+                </div>
 
                 <!-- Rama 3: Soporte y cumplimiento -->
-                <details class="alacarte__branch reveal">
-                    <summary class="alacarte__branch-header">
+                <div class="alacarte__branch reveal" data-branch="soporte">
+                    <button type="button" class="alacarte__branch-header" aria-expanded="false" aria-controls="branch-soporte">
                         <span class="alacarte__branch-title">Soporte y cumplimiento</span>
                         <span class="alacarte__branch-desc">Que funcione, seguro y legal</span>
-                    </summary>
-                    <div class="alacarte__branch-items">
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Legal RGPD básico</h3>
-                                <p class="alacarte__item-desc">Cookies, privacidad, Consent Mode y textos legales.</p>
+                        <span class="alacarte__branch-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="alacarte__branch-body" id="branch-soporte">
+                        <div class="alacarte__branch-items">
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Legal RGPD básico</h3>
+                                    <p class="alacarte__item-desc">Cookies, privacidad, Consent Mode y textos legales.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 200 €</span>
+                                <button type="button" data-add-tx="T-rgpd" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 200 €</span>
-                            <button type="button" data-add-tx="T-rgpd" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Mantenimiento mensual</h3>
-                                <p class="alacarte__item-desc">Actualizaciones, backups, monitorización y soporte.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Mantenimiento mensual</h3>
+                                    <p class="alacarte__item-desc">Actualizaciones, backups, monitorización y soporte.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 120 €/mes</span>
+                                <button type="button" data-add-tx="T-mant" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 120 €/mes</span>
-                            <button type="button" data-add-tx="T-mant" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
-                        </div>
-                        <div class="alacarte__item">
-                            <div class="alacarte__item-info">
-                                <h3 class="alacarte__item-title">Hosting cloud</h3>
-                                <p class="alacarte__item-desc">VPS gestionado con SSL, CDN y backups automáticos.</p>
+                            <div class="alacarte__item">
+                                <div class="alacarte__item-info">
+                                    <h3 class="alacarte__item-title">Hosting cloud</h3>
+                                    <p class="alacarte__item-desc">VPS gestionado con SSL, CDN y backups automáticos.</p>
+                                </div>
+                                <span class="alacarte__item-price">Desde 15 €/mes</span>
+                                <button type="button" data-add-tx="T-host" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                             </div>
-                            <span class="alacarte__item-price">Desde 15 €/mes</span>
-                            <button type="button" data-add-tx="T-host" class="alacarte__cta">Añadir <span aria-hidden="true">+</span></button>
                         </div>
                     </div>
-                </details>
+                </div>
             </div>
 
             <!-- Closing CTA -->

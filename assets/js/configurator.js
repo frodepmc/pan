@@ -808,6 +808,73 @@
         observer.observe(section);
     }
 
+    // ── Branch accordion + peek ────────────────────────
+    function initBranchAccordion() {
+        const branches = document.querySelectorAll('.alacarte__branch[data-branch]');
+        if (!branches.length) return;
+
+        branches.forEach(branch => {
+            const header = branch.querySelector('.alacarte__branch-header');
+            const body = branch.querySelector('.alacarte__branch-body');
+            if (!header || !body) return;
+
+            // Measure real content height and set as CSS variable
+            function updateHeight() {
+                branch.style.setProperty('--branch-h', body.scrollHeight + 'px');
+            }
+
+            header.addEventListener('click', () => {
+                const wasPeeking = branch.classList.contains('is-peeking');
+                const isOpen = branch.classList.contains('is-open');
+
+                if (wasPeeking) {
+                    // Peek → fully open (don't close, just reveal)
+                    branch.classList.remove('is-peeking');
+                    branch.classList.add('is-open');
+                    header.setAttribute('aria-expanded', 'true');
+                    updateHeight();
+                } else if (isOpen) {
+                    // Open → close
+                    branch.classList.remove('is-open');
+                    header.setAttribute('aria-expanded', 'false');
+                } else {
+                    // Closed → open
+                    updateHeight();
+                    branch.classList.add('is-open');
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // First branch starts in peek state (rAF ensures base state paints first)
+        const first = branches[0];
+        if (first) {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const body = first.querySelector('.alacarte__branch-body');
+                    first.classList.add('is-peeking');
+                    if (body) first.style.setProperty('--branch-h', body.scrollHeight + 'px');
+                });
+            });
+        }
+
+        // Scroll-triggered nudge on first branch (one-shot)
+        if (!prefersReducedMotion() && first) {
+            const observer = new IntersectionObserver((entries) => {
+                if (!entries[0].isIntersecting) return;
+                observer.disconnect();
+                setTimeout(() => {
+                    if (!first.classList.contains('is-peeking')) return;
+                    first.classList.add('is-nudging');
+                    first.addEventListener('animationend', () => {
+                        first.classList.remove('is-nudging');
+                    }, { once: true });
+                }, 800);
+            }, { threshold: 0.2 });
+            observer.observe(first);
+        }
+    }
+
     // ── Legacy hash redirect ──────────────────────────
     function handleLegacyHashes() {
         if (LEGACY_HASHES.includes(window.location.hash)) {
@@ -825,6 +892,7 @@
         wireConfigurator();
         handleLegacyHashes();
         initDrawerHint();
+        initBranchAccordion();
     }
 
     if (document.readyState === 'loading') {
