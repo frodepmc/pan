@@ -30,6 +30,154 @@
     object-position: center top;
 }
 
+/* ─── CTA block: no logo, centered body, visible SVG bg ─── */
+.svc-cta::before {
+    background: linear-gradient(110deg, rgba(242, 239, 233, 0.55) 0%, rgba(242, 239, 233, 0.4) 45%, rgba(242, 239, 233, 0.5) 100%);
+}
+.section-media--cta .section-media__image {
+    object-position: center center;
+}
+.svc-cta__inner {
+    justify-content: center;
+}
+.svc-cta__body {
+    text-align: center;
+}
+.svc-cta__text {
+    margin-left: auto;
+    margin-right: auto;
+}
+.svc-cta__actions {
+    justify-content: center;
+}
+
+/* ─── Alacarte branches (collapsible) ─── */
+.alacarte__branches {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2vw, 1.5rem);
+}
+.alacarte__branch {
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.3);
+}
+.alacarte__branch[open] {
+    background: rgba(255, 255, 255, 0.45);
+}
+.alacarte__branch-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1.1rem, 2vw, 1.5rem) clamp(1.2rem, 2vw, 1.8rem);
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.3s ease;
+}
+.alacarte__branch-header::-webkit-details-marker { display: none; }
+.alacarte__branch-header::marker { display: none; content: ''; }
+.alacarte__branch-header:hover {
+    background: rgba(56, 105, 171, 0.04);
+}
+.alacarte__branch-header::after {
+    content: '+';
+    font-family: var(--font-brand);
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease-out);
+}
+.alacarte__branch[open] > .alacarte__branch-header::after {
+    content: '−';
+}
+.alacarte__branch-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    font-weight: 500;
+    color: var(--text);
+}
+.alacarte__branch-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+.alacarte__branch-items {
+    padding: 0 clamp(1.2rem, 2vw, 1.8rem) clamp(1rem, 1.5vw, 1.4rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.alacarte__item {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8rem, 1.5vw, 1.5rem);
+    padding: clamp(0.8rem, 1.2vw, 1rem) 0;
+    border-top: 1px solid var(--border);
+}
+.alacarte__item-info {
+    flex: 1;
+    min-width: 0;
+}
+.alacarte__item-title {
+    font-size: clamp(0.88rem, 1vw, 0.95rem);
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+}
+.alacarte__item-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+.alacarte__item-price {
+    font-family: var(--font-brand);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+button.alacarte__cta {
+    flex-shrink: 0;
+    padding: 0.5rem 0.9rem;
+    font-family: var(--font-brand);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(56, 105, 171, 0.06);
+    border: 1px solid rgba(56, 105, 171, 0.2);
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+button.alacarte__cta:hover {
+    background: rgba(56, 105, 171, 0.12);
+    border-color: var(--accent);
+}
+
+@media (max-width: 700px) {
+    .alacarte__branch-header {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    .alacarte__item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .alacarte__item-price {
+        order: 3;
+    }
+    button.alacarte__cta {
+        order: 4;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* ─── Alacarte button reset (a→button) ─── */
 button.alacarte__cta {
     background: none;
