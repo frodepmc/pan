@@ -140,6 +140,22 @@
 
     // ── Mutations ─────────────────────────────────────
     function selectBase(baseId) {
+        // Deselect if clicking the already-selected base
+        if (state.baseId === baseId) {
+            const name = getBase(baseId).name;
+            state.baseId = null;
+            const hadItems = state.moduleIds.size > 0 || state.transversalIds.size > 0;
+            state.moduleIds.clear();
+            state.transversalIds.clear();
+            if (hadItems) {
+                showToast('Base quitada. Configuración reiniciada.');
+            }
+            // Clear active preset highlight
+            document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('is-active-preset'));
+            renderAll();
+            announce(`Base ${name} deseleccionada.`);
+            return;
+        }
         state.baseId = baseId;
         // Drop modules incompatible with new base
         const dropped = [];
@@ -150,7 +166,7 @@
             }
         }
         if (dropped.length > 0) {
-            showToast(`Hemos quitado los módulos que requieren Web Estándar o Web Completa.`);
+            showToast('Hemos quitado los módulos que requieren Web Estándar o Web Completa.');
         }
         renderAll();
         announce(`Base ${getBase(baseId).name} seleccionada.`);
@@ -165,13 +181,17 @@
             for (const mid of [...state.moduleIds]) {
                 if (!isModuleDependencyMet(mid, state.moduleIds)) {
                     state.moduleIds.delete(mid);
-                    cascadeDropped.push(getModule(mid).name);
+                    cascadeDropped.push(getModule(mid));
                 }
             }
-            if (cascadeDropped.length > 0) {
-                showToast(`Hemos quitado ${cascadeDropped.join(', ')} (depende de ${m.name}).`);
-            }
             renderAll();
+            if (cascadeDropped.length > 0) {
+                const names = cascadeDropped.map(mod => mod.name);
+                showToast(`Quitado: ${names.join(', ')} (requiere ${m.name}).`);
+                cascadeDropped.forEach((mod, i) => {
+                    setTimeout(() => flashCardBlocked(`module-${mod.id}`), i * 150);
+                });
+            }
             announce(`${m.name} quitado.`);
             return true;
         }
@@ -212,7 +232,33 @@
         state.moduleIds = new Set(p.moduleIds);
         state.transversalIds = new Set(p.transversalIds);
         renderAll();
-        scrollToConfigurator();
+
+        // Mark active preset card
+        document.querySelectorAll('.preset-card').forEach(card => {
+            card.classList.toggle('is-active-preset', card.dataset.presetId === presetId);
+        });
+
+        // Scroll to bases group
+        const basesGroup = document.getElementById('bases');
+        if (basesGroup) {
+            const navH = 70;
+            const top = basesGroup.getBoundingClientRect().top + window.scrollY - navH - 20;
+            window.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+        }
+
+        // Stagger-animate selected cards
+        if (!prefersReducedMotion()) {
+            const allSelected = document.querySelectorAll('.configurator__item.is-selected');
+            allSelected.forEach((card, i) => {
+                setTimeout(() => {
+                    card.classList.add('is-just-loaded');
+                    card.addEventListener('animationend', () => {
+                        card.classList.remove('is-just-loaded');
+                    }, { once: true });
+                }, i * 120);
+            });
+        }
+
         announce(`Configuración cargada: ${p.name}.`);
     }
 
@@ -228,8 +274,10 @@
     function flashCardBlocked(cardId) {
         const el = document.getElementById(cardId);
         if (!el) return;
+        el.classList.remove('is-blocked-flash');
+        void el.offsetWidth; // force reflow to restart animation
         el.classList.add('is-blocked-flash');
-        setTimeout(() => el.classList.remove('is-blocked-flash'), 600);
+        setTimeout(() => el.classList.remove('is-blocked-flash'), 1200);
     }
     function announce(text) {
         const el = document.getElementById('configuratorAnnouncer');
@@ -237,11 +285,12 @@
         el.textContent = '';
         requestAnimationFrame(() => { el.textContent = text; });
     }
-    function showToast(text, ms = 4000) {
+    function showToast(text, ms = 5000) {
         const root = document.getElementById('configuratorToasts');
         if (!root) return;
         const chip = document.createElement('div');
         chip.className = 'configurator__toast';
+        chip.setAttribute('role', 'status');
         chip.textContent = text;
         root.appendChild(chip);
         // Force reflow then add visible class for transition
@@ -269,13 +318,14 @@
         const root = document.querySelector('[data-render="presets"]');
         if (!root) return;
         root.innerHTML = CATALOG.presets.map(p => {
-            const items = [getBase(p.baseId).code, ...p.moduleIds].join(' + ');
+            const pills = [getBase(p.baseId).code, ...p.moduleIds]
+                .map(code => `<span class="preset-card__pill">${code}</span>`).join('');
             return `
-                <button type="button" class="preset-card" data-preset-id="${p.id}" role="listitem">
+                <button type="button" class="preset-card" data-preset-id="${p.id}">
                     <span class="preset-card__name">${p.name}</span>
                     <span class="preset-card__tagline">${p.tagline}</span>
-                    <span class="preset-card__items">${items}</span>
-                    <span class="preset-card__cta">Cargar configuración →</span>
+                    <div class="preset-card__items">${pills}</div>
+                    <span class="preset-card__cta">Cargar configuración</span>
                 </button>
             `;
         }).join('');
@@ -320,7 +370,7 @@
             else if (blocked && m.requiresModule) warnText = `Necesita: ${m.requiresModule.map(d => getModule(d).name).join(', ')}.`;
             return `
                 <button type="button"
-                        class="configurator__item configurator__item--module ${selected ? 'is-selected' : ''} ${blocked ? 'is-blocked' : ''} ${advanced ? 'is-advanced' : ''}"
+                        class="configurator__item configurator__item--module ${selected ? 'is-selected' : ''} ${blocked ? 'is-blocked' : ''} ${advanced ? 'is-advanced' : ''} ${discovery ? 'has-discovery-badge' : ''}"
                         id="module-${m.id}"
                         data-module-id="${m.id}"
                         aria-pressed="${selected}"
@@ -329,7 +379,7 @@
                     <span class="configurator__item-name">${m.name}</span>
                     <span class="configurator__item-tagline">${m.tagline}</span>
                     <span class="configurator__item-when">${m.when}</span>
-                    <span class="configurator__item-price ${discovery ? 'is-discovery' : ''}">${m.priceLabel}</span>
+                    <span class="configurator__item-price ${discovery ? 'is-discovery' : ''}"${discovery ? ' aria-describedby="discovery-explain"' : ''}>${m.priceLabel}</span>
                     ${warnText ? `<span class="configurator__item-warning">${warnText}</span>` : ''}
                 </button>
             `;
@@ -445,14 +495,92 @@
     function renderSendButton() {
         const btn = document.getElementById('configuratorSendBtn');
         if (!btn) return;
-        const n = countSelected();
-        if (n === 0) {
+        if (!state.baseId) {
             btn.disabled = true;
             btn.textContent = 'Empieza eligiendo una base';
         } else {
             btn.disabled = false;
             btn.textContent = 'Enviar configuración por WhatsApp';
         }
+    }
+
+    function renderProgressBadges() {
+        const groups = [
+            { id: 'bases',         hasSelection: state.baseId !== null },
+            { id: 'modulos',       hasSelection: state.moduleIds.size > 0 },
+            { id: 'transversales', hasSelection: state.transversalIds.size > 0 },
+        ];
+        groups.forEach(({ id, hasSelection }) => {
+            const header = document.querySelector(`#${id} .configurator__group-header`);
+            if (!header) return;
+            let badge = header.querySelector('.configurator__group-status');
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'configurator__group-status';
+                badge.setAttribute('aria-hidden', 'true');
+                header.appendChild(badge);
+            }
+            if (hasSelection) {
+                badge.className = 'configurator__group-status configurator__group-status--done';
+                badge.textContent = '\u2713';
+            } else {
+                badge.className = 'configurator__group-status configurator__group-status--empty';
+                badge.textContent = '';
+            }
+        });
+    }
+
+    // ── Progressive disclosure ──────────────────────────
+    function updateLockState() {
+        const baseSelected = state.baseId !== null;
+        const groups = [
+            { el: document.getElementById('modulos'), unlockWhen: baseSelected },
+            { el: document.getElementById('transversales'), unlockWhen: baseSelected },
+        ];
+        groups.forEach(({ el, unlockWhen }) => {
+            if (!el || !el.hasAttribute('data-step')) return;
+            const wasLocked = !el.classList.contains('is-unlocked');
+            if (unlockWhen) {
+                el.classList.add('is-unlocked');
+                if (wasLocked && !prefersReducedMotion()) {
+                    el.classList.add('is-just-unlocked');
+                    // Clean up animation class after all cards finish (6 × 80ms + 500ms base)
+                    setTimeout(() => el.classList.remove('is-just-unlocked'), 900);
+                }
+            } else {
+                el.classList.remove('is-unlocked', 'is-just-unlocked');
+            }
+        });
+    }
+
+    function renderSidebarProgress() {
+        const container = document.querySelector('.configurator__sidebar-body');
+        if (!container) return;
+        let progress = container.querySelector('.configurator__sidebar-progress');
+        if (!progress) {
+            progress = document.createElement('div');
+            progress.className = 'configurator__sidebar-progress';
+            progress.innerHTML = `
+                <span class="sidebar-step" data-sidebar-step="1">01</span>
+                <span class="sidebar-step" data-sidebar-step="2">02</span>
+                <span class="sidebar-step" data-sidebar-step="3">03</span>
+            `;
+            container.insertBefore(progress, container.firstChild);
+        }
+        const steps = [
+            { n: '1', done: state.baseId !== null },
+            { n: '2', done: state.moduleIds.size > 0 },
+            { n: '3', done: state.transversalIds.size > 0 },
+        ];
+        // Determine current step (first incomplete)
+        const currentIdx = steps.findIndex(s => !s.done);
+        steps.forEach(({ n, done }, i) => {
+            const el = progress.querySelector(`[data-sidebar-step="${n}"]`);
+            if (!el) return;
+            el.classList.toggle('is-done', done);
+            el.classList.toggle('is-current', !done && i === currentIdx);
+            el.textContent = done ? '\u2713' : `0${n}`;
+        });
     }
 
     function renderAll() {
@@ -464,6 +592,9 @@
         renderTotals();
         renderHandle();
         renderSendButton();
+        renderProgressBadges();
+        updateLockState();
+        renderSidebarProgress();
     }
 
     // ── WhatsApp output ───────────────────────────────
@@ -527,10 +658,12 @@
             const original = btn.textContent;
             btn.disabled = true;
             btn.textContent = 'Abriendo WhatsApp...';
+            btn.setAttribute('aria-busy', 'true');
             setTimeout(() => {
                 btn.disabled = false;
                 btn.textContent = original;
-            }, 2500);
+                btn.setAttribute('aria-busy', 'false');
+            }, 3000);
         } else {
             showToast('No se pudo abrir WhatsApp. Revisa el bloqueador de pop-ups.');
         }
@@ -559,14 +692,59 @@
             handle.addEventListener('click', () => {
                 const open = sidebar.classList.toggle('is-open');
                 handle.setAttribute('aria-expanded', String(open));
+                if (open) {
+                    const firstFocusable = sidebar.querySelector('.configurator__sidebar-cta, .configurator__sidebar-secondary');
+                    if (firstFocusable) firstFocusable.focus({ preventScroll: true });
+                }
             });
         }
         // Send button
         const sendBtn = document.getElementById('configuratorSendBtn');
         if (sendBtn) sendBtn.addEventListener('click', sendToWhatsApp);
-        // Reset button
+        // Reset button — double-click confirmation pattern
         const resetBtn = document.getElementById('configuratorResetBtn');
-        if (resetBtn) resetBtn.addEventListener('click', resetConfig);
+        if (resetBtn) {
+            let resetTimer = null;
+            resetBtn.addEventListener('click', () => {
+                if (countSelected() === 0) return;
+                if (resetBtn.classList.contains('is-confirming')) {
+                    clearTimeout(resetTimer);
+                    resetBtn.classList.remove('is-confirming');
+                    resetBtn.textContent = 'Limpiar';
+                    resetConfig();
+                    showToast('Configuración limpiada.');
+                    return;
+                }
+                resetBtn.classList.add('is-confirming');
+                resetBtn.textContent = 'Confirmar limpieza';
+                resetTimer = setTimeout(() => {
+                    resetBtn.classList.remove('is-confirming');
+                    resetBtn.textContent = 'Limpiar';
+                }, 3000);
+            });
+        }
+        // Sidebar sticky↔drawer resize transition (debounced)
+        let lastWasDrawer = window.innerWidth <= 900;
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+            const isDrawer = window.innerWidth <= 900;
+            if (isDrawer !== lastWasDrawer && sidebar) {
+                sidebar.classList.add('is-transitioning');
+                sidebar.classList.remove('is-open');
+                if (handle) handle.setAttribute('aria-expanded', 'false');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        sidebar.classList.remove('is-transitioning');
+                        sidebar.classList.add('is-transitioning-in');
+                        setTimeout(() => sidebar.classList.remove('is-transitioning-in'), 350);
+                    });
+                });
+                lastWasDrawer = isDrawer;
+            }
+            }, 150);
+        });
         // Escape closes mobile drawer
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && sidebar && sidebar.classList.contains('is-open')) {
@@ -579,6 +757,11 @@
             const addBtn = e.target.closest('[data-add-tx]');
             if (addBtn) {
                 e.preventDefault();
+                if (!state.baseId) {
+                    showToast('Elige una base primero para poder añadir servicios.');
+                    scrollToConfigurator();
+                    return;
+                }
                 const tid = addBtn.dataset.addTx;
                 if (!state.transversalIds.has(tid)) {
                     state.transversalIds.add(tid);
@@ -588,6 +771,32 @@
                 scrollToConfigurator();
             }
         });
+    }
+
+    // ── Drawer hint (mobile, one-shot) ─────────────────
+    function initDrawerHint() {
+        if (prefersReducedMotion()) return;
+        if (window.innerWidth > 900) return;
+        if (sessionStorage.getItem('crux-drawer-hinted')) return;
+
+        const section = document.getElementById('configurador');
+        const sidebar = document.getElementById('configuratorSidebar');
+        if (!section || !sidebar) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            if (!entries[0].isIntersecting) return;
+            observer.disconnect();
+            setTimeout(() => {
+                if (sidebar.classList.contains('is-open')) return;
+                sidebar.classList.add('has-hint');
+                sessionStorage.setItem('crux-drawer-hinted', '1');
+                sidebar.addEventListener('animationend', () => {
+                    sidebar.classList.remove('has-hint');
+                }, { once: true });
+            }, 2000);
+        }, { threshold: 0.1 });
+
+        observer.observe(section);
     }
 
     // ── Legacy hash redirect ──────────────────────────
@@ -606,6 +815,7 @@
         renderAll();
         wireConfigurator();
         handleLegacyHashes();
+        initDrawerHint();
     }
 
     if (document.readyState === 'loading') {

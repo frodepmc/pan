@@ -83,7 +83,7 @@
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
     <!-- Custom Cursor -->
-    <div class="cursor" id="cursor"></div>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
 
     <!-- Scroll Progress -->
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -223,8 +223,11 @@
                         <div class="configurator__grid configurator__grid--bases" data-render="bases" role="radiogroup" aria-label="Bases web"></div>
                     </div>
 
-                    <!-- Módulos -->
-                    <div class="configurator__group reveal" id="modulos">
+                    <!-- Módulos (locked until base selected) -->
+                    <div class="configurator__group reveal" id="modulos" data-step="2">
+                        <div class="configurator__lock-overlay" aria-hidden="true">
+                            <span class="configurator__lock-msg">Elige una base para desbloquear</span>
+                        </div>
                         <div class="configurator__group-header">
                             <h3 class="configurator__group-title">02 · Apila los módulos</h3>
                             <span class="configurator__group-hint">Selecciona los que necesites</span>
@@ -232,8 +235,11 @@
                         <div class="configurator__grid configurator__grid--modules" data-render="modules" role="group" aria-label="Módulos opcionales"></div>
                     </div>
 
-                    <!-- Transversales -->
-                    <div class="configurator__group reveal" id="transversales">
+                    <!-- Transversales (locked until base selected) -->
+                    <div class="configurator__group reveal" id="transversales" data-step="3">
+                        <div class="configurator__lock-overlay" aria-hidden="true">
+                            <span class="configurator__lock-msg">Selecciona una base para añadir servicios</span>
+                        </div>
                         <div class="configurator__group-header">
                             <h3 class="configurator__group-title">03 · Servicios transversales</h3>
                             <span class="configurator__group-hint">Apoyo continuo, opcional</span>
@@ -250,7 +256,7 @@
                     </button>
                     <div class="configurator__sidebar-body" id="configuratorSidebarBody">
                         <h3 class="configurator__sidebar-title">Tu configuración</h3>
-                        <div class="configurator__sidebar-summary" data-render="summary"></div>
+                        <div class="configurator__sidebar-summary" data-render="summary" aria-label="Resumen de elementos seleccionados" role="region"></div>
                         <div class="configurator__sidebar-discovery" data-render="discovery" hidden></div>
                         <div class="configurator__sidebar-totals" data-render="totals"></div>
                         <p class="configurator__sidebar-disclaimer">Precios sin IVA. Estimación mínima orientativa, ajustamos en propuesta.</p>
@@ -259,8 +265,9 @@
                             <button type="button" class="configurator__sidebar-secondary" id="configuratorResetBtn">Limpiar</button>
                         </div>
                     </div>
-                    <div id="configuratorToasts" class="configurator__toasts" aria-live="polite" aria-atomic="false"></div>
+                    <div id="configuratorToasts" class="configurator__toasts" aria-live="polite" aria-atomic="true" aria-relevant="additions"></div>
                     <div id="configuratorAnnouncer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+                    <span id="discovery-explain" class="sr-only">Discovery es una sesión de análisis inicial para definir alcance y presupuesto exacto.</span>
                 </aside>
             </div>
         </div>
@@ -276,23 +283,23 @@
         </picture>
         <div class="container">
             <div class="asesoria-banner__header reveal">
-                <svg class="asesoria-banner__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <svg class="asesoria-banner__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Incluido"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <h3 class="asesoria-banner__title">Asesoría y formación incluida en todos los servicios</h3>
             </div>
-            <div class="asesoria-banner__points reveal">
-                <div class="asesoria-banner__point">
+            <ul class="asesoria-banner__points reveal">
+                <li class="asesoria-banner__point">
                     <span class="asesoria-banner__point-title">Sesiones personalizadas</span>
                     <p class="asesoria-banner__point-desc">4–6h de asesoría one-on-one para definir la mejor solución para tu negocio.</p>
-                </div>
-                <div class="asesoria-banner__point">
+                </li>
+                <li class="asesoria-banner__point">
                     <span class="asesoria-banner__point-title">Formación para tu equipo</span>
                     <p class="asesoria-banner__point-desc">Workshops prácticos para que tu equipo arranque seguro desde el primer día.</p>
-                </div>
-                <div class="asesoria-banner__point">
+                </li>
+                <li class="asesoria-banner__point">
                     <span class="asesoria-banner__point-title">Soporte post-implementación</span>
                     <p class="asesoria-banner__point-desc">4–6 semanas de acompañamiento y soporte directo por WhatsApp.</p>
-                </div>
-            </div>
+                </li>
+            </ul>
         </div>
     </section>
 
@@ -314,70 +321,70 @@
                     <h3 class="alacarte__card-title">Branding / identidad visual</h3>
                     <p class="alacarte__card-desc">Naming, logo, sistema visual y guías de aplicación para tu marca.</p>
                     <span class="alacarte__price">Desde 800 €</span>
-                    <a href="#configurador" data-add-tx="T-branding" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-branding" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">02</span>
                     <h3 class="alacarte__card-title">Copywriting</h3>
                     <p class="alacarte__card-desc">Textos web profesionales, claros y orientados a conversión. Por página.</p>
                     <span class="alacarte__price">Desde 180 €/pág</span>
-                    <a href="#configurador" data-add-tx="T-copy" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-copy" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">03</span>
                     <h3 class="alacarte__card-title">Auditoría SEO inicial</h3>
                     <p class="alacarte__card-desc">Diagnóstico técnico, on-page, palabras clave y plan de mejora priorizado.</p>
                     <span class="alacarte__price">Desde 350 €</span>
-                    <a href="#configurador" data-add-tx="T-seoaudit" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-seoaudit" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">04</span>
                     <h3 class="alacarte__card-title">SEO mensual</h3>
                     <p class="alacarte__card-desc">Trabajo continuo: contenidos, optimizaciones técnicas, link building, reporting.</p>
                     <span class="alacarte__price">Desde 350 €/mes</span>
-                    <a href="#configurador" data-add-tx="T-seomensual" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-seomensual" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">05</span>
                     <h3 class="alacarte__card-title">Multiidioma</h3>
                     <p class="alacarte__card-desc">Setup técnico (CMS, routing, hreflang) y traducción editorial. Por idioma añadido.</p>
                     <span class="alacarte__price">Desde 600 €/idioma</span>
-                    <a href="#configurador" data-add-tx="T-multilang" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-multilang" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">06</span>
                     <h3 class="alacarte__card-title">Legal RGPD básico</h3>
                     <p class="alacarte__card-desc">Banner de cookies, política de privacidad, Consent Mode y textos legales para PYME.</p>
                     <span class="alacarte__price">Desde 200 €</span>
-                    <a href="#configurador" data-add-tx="T-rgpd" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-rgpd" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">07</span>
                     <h3 class="alacarte__card-title">IA básica (chatbot LLM)</h3>
                     <p class="alacarte__card-desc">Asistente conversacional integrado en tu web con LLM y datos de tu negocio.</p>
                     <span class="alacarte__price">Desde 800 €</span>
-                    <a href="#configurador" data-add-tx="T-ia" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-ia" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">08</span>
                     <h3 class="alacarte__card-title">Mantenimiento mensual</h3>
                     <p class="alacarte__card-desc">Actualizaciones, backups, monitorización, soporte rápido y pequeños ajustes.</p>
                     <span class="alacarte__price">Desde 120 €/mes</span>
-                    <a href="#configurador" data-add-tx="T-mant" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-mant" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">09</span>
                     <h3 class="alacarte__card-title">Automatizaciones no-code</h3>
                     <p class="alacarte__card-desc">Flujos con Zapier o Make para conectar tu web, CRM, email y herramientas internas.</p>
                     <span class="alacarte__price">Desde 350 €</span>
-                    <a href="#configurador" data-add-tx="T-auto" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-auto" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
                 <div class="alacarte__card reveal">
                     <span class="alacarte__num">10</span>
                     <h3 class="alacarte__card-title">Hosting cloud</h3>
                     <p class="alacarte__card-desc">Hosting cloud / VPS gestionado con SSL, CDN y backups automáticos.</p>
                     <span class="alacarte__price">Desde 15 €/mes</span>
-                    <a href="#configurador" data-add-tx="T-host" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></a>
+                    <button type="button" data-add-tx="T-host" class="alacarte__cta">Añadir al configurador <span aria-hidden="true">&rarr;</span></button>
                 </div>
             </div>
 
@@ -388,7 +395,7 @@
                     <img class="section-media__image" src="assets/images/cta-bg-fallback.jpeg" alt="" width="1600" height="1067" decoding="async" loading="lazy">
                 </picture>
                 <div class="svc-cta__inner">
-                    <img src="logo-crux.png" alt="" class="svc-cta__logo" width="800" height="800" aria-hidden="true">
+                    <img src="logo-crux.png" alt="" class="svc-cta__logo" width="800" height="800" aria-hidden="true" loading="lazy">
                     <div class="svc-cta__body">
                         <h2 class="svc-cta__heading">Diagnóstico gratuito.<br><em>¿Empezamos?</em></h2>
                         <p class="svc-cta__text">Analizamos tu negocio, detectamos los puntos de dolor y te proponemos un plan concreto. Sin compromiso.</p>
