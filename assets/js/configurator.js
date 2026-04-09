@@ -8,45 +8,45 @@
     // ── Catalog ───────────────────────────────────────
     const CATALOG = Object.freeze({
         bases: [
-            { id: 'B1', code: 'B1', name: 'Landing Page',  priceFrom: 700,  priceLabel: 'Desde 700 €',
+            { id: 'B1', code: 'B1', name: 'Landing Page', pill: 'Landing', priceFrom: 700, priceLabel: 'Desde 700 €',
               tagline: '1 página de alto impacto',
               includes: ['1 página responsive', 'Formulario de captación', 'SEO on-page básico', 'Hosting + DNS'] },
-            { id: 'B2', code: 'B2', name: 'Web Estándar',  priceFrom: 2400, priceLabel: 'Desde 2.400 €',
+            { id: 'B2', code: 'B2', name: 'Web Estándar', pill: 'Estándar', priceFrom: 2400, priceLabel: 'Desde 2.400 €',
               tagline: '5–7 páginas profesionales',
               includes: ['Hasta 5–7 páginas', 'CMS básico', 'Formularios de contacto', 'SEO on-page', 'Menú y footer'] },
-            { id: 'B3', code: 'B3', name: 'Web Completa',  priceFrom: 4500, priceLabel: 'Desde 4.500 €',
+            { id: 'B3', code: 'B3', name: 'Web Completa', pill: 'Completa', priceFrom: 4500, priceLabel: 'Desde 4.500 €',
               tagline: '10–12 páginas con CMS',
               includes: ['Hasta 10–12 páginas', 'CMS completo', 'Estructura multi-sección', 'SEO en todas las páginas', 'Analytics integrado'] },
         ],
         modules: [
-            { id: 'M1', code: 'M1', name: 'Contenido / Blog',
+            { id: 'M1', code: 'M1', name: 'Contenido / Blog', pill: 'Blog',
               priceFrom: 1500, priceLabel: 'Desde 1.500 €', requiresDiscovery: false,
               requiresBase: ['B2','B3'], requiresModule: null,
               tagline: 'Sistema de publicación y captación orgánica',
               when: 'Vas a publicar artículos, guías o recursos.' },
-            { id: 'M2', code: 'M2', name: 'Gobierno Editorial',
+            { id: 'M2', code: 'M2', name: 'Gobierno Editorial', pill: 'Editorial',
               priceFrom: 1800, priceLabel: 'Desde 1.800 €', requiresDiscovery: false,
               requiresBase: ['B2','B3'], requiresModule: ['M1'],
               tagline: 'Panel admin con control editorial',
               when: 'Tienes varios editores y necesitas workflow de aprobación.' },
-            { id: 'M3', code: 'M3', name: 'Dashboard / Panel',
+            { id: 'M3', code: 'M3', name: 'Dashboard / Panel', pill: 'Dashboard',
               priceFrom: 0, priceLabel: 'Requiere discovery', requiresDiscovery: true,
               discoveryRange: [1500, 3000], baseRange: [4000, 7000],
               requiresBase: ['B2','B3'], requiresModule: null,
               tagline: 'Panel interno con KPIs y datos operativos',
               when: 'Necesitas visualizar datos internos o de negocio.' },
-            { id: 'M4', code: 'M4', name: 'Autenticación / Portal',
+            { id: 'M4', code: 'M4', name: 'Autenticación / Portal', pill: 'Portal',
               priceFrom: 0, priceLabel: 'Requiere discovery', requiresDiscovery: true,
               discoveryRange: [1500, 3500], baseRange: [4500, 8000],
               requiresBase: ['B2','B3'], requiresModule: null,
               tagline: 'Área privada para usuarios finales',
               when: 'Tus usuarios deben identificarse y tener perfil.' },
-            { id: 'M5', code: 'M5', name: 'Comercio',
+            { id: 'M5', code: 'M5', name: 'Comercio', pill: 'Comercio',
               priceFrom: 2500, priceLabel: 'Desde 2.500 €', requiresDiscovery: false,
               requiresBase: ['B2','B3'], requiresModule: null,
               tagline: 'Tienda online con catálogo y checkout',
               when: 'Vendes productos o servicios con pago online.' },
-            { id: 'M6', code: 'M6', name: 'Producto Digital / MVP',
+            { id: 'M6', code: 'M6', name: 'Producto Digital / MVP', pill: 'MVP',
               priceFrom: 0, priceLabel: 'Requiere discovery', requiresDiscovery: true,
               discoveryRange: [2500, 4000], baseRange: [12000, 20000],
               requiresBase: ['B2','B3'], requiresModule: null, tier: 'advanced',
@@ -318,8 +318,8 @@
         const root = document.querySelector('[data-render="presets"]');
         if (!root) return;
         root.innerHTML = CATALOG.presets.map(p => {
-            const pills = [getBase(p.baseId).code, ...p.moduleIds]
-                .map(code => `<span class="preset-card__pill">${code}</span>`).join('');
+            const pills = [getBase(p.baseId), ...p.moduleIds.map(getModule)]
+                .map(item => `<span class="preset-card__pill">${item.pill}</span>`).join('');
             return `
                 <button type="button" class="preset-card" data-preset-id="${p.id}">
                     <span class="preset-card__name">${p.name}</span>
@@ -343,7 +343,6 @@
                         data-base-id="${b.id}"
                         role="radio"
                         aria-checked="${selected}">
-                    <span class="configurator__item-code">${b.code}</span>
                     <span class="configurator__item-name">${b.name}</span>
                     <span class="configurator__item-tagline">${b.tagline}</span>
                     <ul class="configurator__item-includes">
@@ -375,7 +374,6 @@
                         data-module-id="${m.id}"
                         aria-pressed="${selected}"
                         ${blocked ? 'aria-disabled="true"' : ''}>
-                    <span class="configurator__item-code">${m.code}</span>
                     <span class="configurator__item-name">${m.name}</span>
                     <span class="configurator__item-tagline">${m.tagline}</span>
                     <span class="configurator__item-when">${m.when}</span>
@@ -453,7 +451,7 @@
             <ul class="configurator__sidebar-discovery-list">
                 ${modules.map(m => `
                     <li>
-                        <strong>${m.code} ${m.name}</strong><br>
+                        <strong>${m.name}</strong><br>
                         Discovery ${formatEUR(m.discoveryRange[0])}–${formatEUR(m.discoveryRange[1])} · Base ${formatEUR(m.baseRange[0])}–${formatEUR(m.baseRange[1])}
                     </li>
                 `).join('')}
