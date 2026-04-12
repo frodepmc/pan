@@ -766,6 +766,13 @@
             const addBtn = e.target.closest('[data-add-tx]');
             if (addBtn) {
                 e.preventDefault();
+                // Guard: if on consulting track, switch to web first
+                if (document.body.dataset.activeTrack === 'consultoria') {
+                    const webBtn = document.querySelector('[data-track-btn="web"]');
+                    if (webBtn) webBtn.click();
+                    showToast('Cambiado a diseño web. Elige una base para añadir servicios.');
+                    return;
+                }
                 if (!state.baseId) {
                     showToast('Elige una base primero para poder añadir servicios.');
                     scrollToConfigurator();
@@ -815,6 +822,10 @@
         const tracks = document.querySelectorAll('[data-track]');
         if (!trackBtns.length || !tracks.length) return;
 
+        // Track-aware elements: hide on consulting, show on web
+        const sidebar = document.getElementById('configuratorSidebar');
+        const yaTegoWeb = document.getElementById('ya-tengo-web');
+
         function activateTrack(target, scroll) {
             trackBtns.forEach(b => {
                 const isMatch = b.dataset.trackBtn === target;
@@ -824,6 +835,15 @@
             tracks.forEach(t => {
                 t.classList.toggle('is-visible', t.dataset.track === target);
             });
+
+            // Hide drawer + "Ya tengo web" on consulting track
+            const isWeb = target === 'web';
+            if (sidebar) sidebar.style.display = isWeb ? '' : 'none';
+            if (yaTegoWeb) yaTegoWeb.style.display = isWeb ? '' : 'none';
+
+            // Store active track for transversal guard
+            document.body.dataset.activeTrack = target;
+
             history.replaceState(null, '', `#${target}`);
             if (scroll) {
                 const activeTrack = document.querySelector(`[data-track="${target}"].is-visible`);

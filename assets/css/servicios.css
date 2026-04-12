@@ -147,12 +147,18 @@ html {
     flex-shrink: 0;
 }
 
-/* ─── Track toggle ─── */
+/* ─── Track toggle (SEO-safe: content in DOM for Googlebot) ─── */
 .track-content {
-    display: none;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
 }
 .track-content.is-visible {
-    display: block;
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+    opacity: 1;
 }
 
 /* ─── Consulting packs ─── */
