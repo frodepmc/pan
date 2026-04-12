@@ -193,16 +193,33 @@
                 </div>
 
                 <div class="services-showcase__panel">
-                    <span class="services-showcase__panel-kicker">Dos líneas de servicio</span>
-                    <ul class="services-showcase__panel-list">
-                        <li>Diseño y desarrollo web con configurador modular</li>
-                        <li>Consultoría digital: reservas, CRM, facturación y operaciones</li>
-                        <li>Servicios transversales a la carta</li>
-                        <li>Auditoría y diagnóstico gratuito</li>
-                    </ul>
-                    <div class="services-showcase__actions">
-                        <a href="/servicios" class="services-showcase__cta">Ver servicios</a>
-                        <a href="/servicios#consultoria" class="services-showcase__link">Ver consultoría digital</a>
+                    <span class="services-showcase__panel-kicker">Elige tu camino</span>
+                    <div class="panel-paths">
+                        <a href="/servicios#web" class="panel-path">
+                            <span class="panel-path__num">01</span>
+                            <div class="panel-path__body">
+                                <span class="panel-path__title">Diseño web</span>
+                                <span class="panel-path__desc">Configurador modular con precio al instante</span>
+                            </div>
+                            <span class="panel-path__arrow" aria-hidden="true">&rarr;</span>
+                        </a>
+                        <div class="panel-paths__divider" aria-hidden="true">
+                            <span class="panel-paths__line"></span>
+                            <span class="panel-paths__or">o</span>
+                            <span class="panel-paths__line"></span>
+                        </div>
+                        <a href="/servicios#consultoria" class="panel-path">
+                            <span class="panel-path__num">02</span>
+                            <div class="panel-path__body">
+                                <span class="panel-path__title">Consultoría digital</span>
+                                <span class="panel-path__desc">Reservas, CRM, facturación y operaciones</span>
+                            </div>
+                            <span class="panel-path__arrow" aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                    <div class="panel-extras">
+                        <span class="panel-extra"><span class="panel-extra__marker" aria-hidden="true">+</span> Transversales a la carta</span>
+                        <span class="panel-extra"><span class="panel-extra__marker" aria-hidden="true">+</span> Diagnóstico gratuito</span>
                     </div>
                 </div>
             </div>
@@ -212,15 +229,28 @@
                     <span class="services-teaser__eyebrow">Diseño web</span>
                     <h3 class="services-teaser__title">Construye tu propuesta web pieza a pieza.</h3>
                     <p class="services-teaser__desc">Catálogo modular con configurador interactivo. Elige base, módulos y transversales. Precio al instante.</p>
-                    <div class="services-teaser__list">
-                        <span class="services-teaser__item">
-                            <strong>Bases web</strong>
-                            <span>Landing, Web Estándar o Web Completa.</span>
-                        </span>
-                        <span class="services-teaser__item">
-                            <strong>Módulos</strong>
-                            <span>Blog, e-commerce, dashboard, portal privado o MVP.</span>
-                        </span>
+                    <div class="services-teaser__showcase" aria-hidden="true">
+                        <div class="showcase-card">
+                            <div class="showcase-card__info">
+                                <span class="showcase-card__name">Landing</span>
+                                <span class="showcase-card__sub">Página única</span>
+                            </div>
+                            <span class="showcase-card__price">700 €</span>
+                        </div>
+                        <div class="showcase-card showcase-card--accent">
+                            <div class="showcase-card__info">
+                                <span class="showcase-card__name">Web Estándar</span>
+                                <span class="showcase-card__sub">Multipágina</span>
+                            </div>
+                            <span class="showcase-card__price">2.400 €</span>
+                        </div>
+                        <div class="showcase-card">
+                            <div class="showcase-card__info">
+                                <span class="showcase-card__name">Web Completa</span>
+                                <span class="showcase-card__sub">CMS completo</span>
+                            </div>
+                            <span class="showcase-card__price">4.500 €</span>
+                        </div>
                     </div>
                     <span class="services-teaser__footer">Abrir configurador <span aria-hidden="true">&rarr;</span></span>
                 </a>
@@ -229,11 +259,23 @@
                     <span class="services-teaser__eyebrow">Consultoría digital</span>
                     <h3 class="services-teaser__title">Herramientas digitales para tu operativa diaria.</h3>
                     <p class="services-teaser__desc">Implementamos y configuramos las herramientas que tu negocio necesita para operar, vender y facturar.</p>
-                    <div class="services-teaser__chips">
-                        <span>Motor de reservas</span>
-                        <span>Operaciones</span>
-                        <span>Facturación digital</span>
-                        <span>CRM comercial</span>
+                    <div class="services-teaser__packs-showcase" aria-hidden="true">
+                        <div class="pack-mini">
+                            <span class="pack-mini__name">Reservas</span>
+                            <span class="pack-mini__price">810 €</span>
+                        </div>
+                        <div class="pack-mini">
+                            <span class="pack-mini__name">Operaciones</span>
+                            <span class="pack-mini__price">990 €</span>
+                        </div>
+                        <div class="pack-mini pack-mini--accent">
+                            <span class="pack-mini__name">Facturación</span>
+                            <span class="pack-mini__price">520 €</span>
+                        </div>
+                        <div class="pack-mini">
+                            <span class="pack-mini__name">CRM</span>
+                            <span class="pack-mini__price">1.210 €</span>
+                        </div>
                     </div>
                     <span class="services-teaser__footer">Ver packs de consultoría <span aria-hidden="true">&rarr;</span></span>
                 </a>
