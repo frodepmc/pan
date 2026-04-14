@@ -54,50 +54,73 @@
                 <p>Las cookies son pequeños archivos de texto que los sitios web almacenan en el navegador del usuario cuando este los visita. Se utilizan ampliamente para hacer que los sitios web funcionen de manera más eficiente, así como para proporcionar información a los propietarios del sitio.</p>
                 <p>Existen también tecnologías similares, como el almacenamiento local del navegador (localStorage, sessionStorage), que cumplen funciones análogas. Esta política cubre tanto las cookies como estas tecnologías similares.</p>
 
-                <h2>2. ¿Qué cookies utiliza este sitio web?</h2>
-                <p>CRUX Consulting ha diseñado su sitio web con un enfoque de privacidad por defecto. Actualmente, <strong>no instalamos cookies propias</strong> en su navegador. Sin embargo, algunos servicios de terceros necesarios para el funcionamiento del sitio pueden establecer cookies:</p>
+                <h2>2. Cookies, recursos externos y tecnologías similares</h2>
+                <p>CRUX Consulting ha diseñado su sitio web con un enfoque de <strong>privacidad por defecto</strong>. Actualmente, <strong>no instalamos cookies propias</strong> en su navegador y <strong>no utilizamos herramientas de analítica web ni píxeles de seguimiento</strong>.</p>
+                <p>A continuación diferenciamos entre cookies, recursos externos y almacenamiento técnico del navegador:</p>
 
-                <h3>2.1. Cookies técnicas / funcionales de terceros</h3>
+                <h3>2.1. Cookies</h3>
+                <p>En el momento de esta revisión, este sitio web <strong>no establece cookies propias ni de terceros</strong>. Google Fonts, según su documentación oficial, declara no establecer ni registrar cookies. No obstante, se recomienda verificar periódicamente esta afirmación mediante escaneo técnico.</p>
+
+                <h3>2.2. Recursos externos (no son cookies)</h3>
+                <p>El sitio carga recursos desde servidores de terceros. Aunque estos no establecen cookies, la solicitud implica la transmisión de datos técnicos (dirección IP, URL solicitada, cabeceras HTTP) al proveedor:</p>
                 <table class="legal__table">
                     <thead>
                         <tr>
+                            <th>Recurso</th>
                             <th>Proveedor</th>
                             <th>Finalidad</th>
-                            <th>Tipo</th>
-                            <th>Duración</th>
+                            <th>Datos transmitidos</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Google Fonts (fonts.googleapis.com)</td>
-                            <td>Carga de tipografías web (Jost, Montserrat). Puede registrar la IP del visitante.</td>
-                            <td>Funcional / tercero</td>
-                            <td>Sesión</td>
+                            <td>Google Fonts</td>
+                            <td>Google LLC</td>
+                            <td>Carga de tipografías web (Jost, Montserrat)</td>
+                            <td>IP, URL, cabeceras HTTP, user-agent</td>
                         </tr>
                         <tr>
-                            <td>jsDelivr CDN (cdn.jsdelivr.net)</td>
-                            <td>Distribución del script de EmailJS para el formulario de contacto.</td>
-                            <td>Funcional / tercero</td>
-                            <td>Sesión</td>
+                            <td>EmailJS SDK</td>
+                            <td>jsDelivr CDN</td>
+                            <td>Script del formulario de contacto</td>
+                            <td>IP, cabeceras, recurso solicitado</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h3>2.2. Cookies analíticas</h3>
-                <p>Este sitio web <strong>no utiliza actualmente herramientas de analítica web</strong> (como Google Analytics, Matomo o similares). No se instalan cookies analíticas ni píxeles de seguimiento. En caso de incorporarse en el futuro, se actualizará esta política y se solicitará el consentimiento previo del usuario.</p>
+                <h3>2.3. Cookies analíticas y de marketing</h3>
+                <p>Este sitio web <strong>no utiliza herramientas de analítica web</strong> (Google Analytics, Matomo, etc.), <strong>ni cookies de marketing o publicidad</strong>. No se realiza seguimiento publicitario, remarketing ni se comparten datos de navegación con redes publicitarias. En caso de incorporarse en el futuro, se actualizará esta política y se solicitará el consentimiento previo del usuario.</p>
 
-                <h3>2.3. Cookies de marketing / publicidad</h3>
-                <p>Este sitio web <strong>no utiliza cookies de marketing ni publicidad</strong>. No se realiza seguimiento publicitario, remarketing ni se comparten datos de navegación con redes publicitarias.</p>
-
-                <h3>2.4. Almacenamiento local del navegador</h3>
-                <p>El configurador de servicios de la página <a href="/servicios">/servicios</a> utiliza variables en la memoria del navegador (JavaScript runtime) para almacenar temporalmente las selecciones del usuario (base, módulos, servicios transversales). Estos datos:</p>
-                <ul>
-                    <li>Se procesan exclusivamente en el navegador del usuario (client-side).</li>
-                    <li>No se transmiten a ningún servidor.</li>
-                    <li>Se eliminan al cerrar la página o al recargarla.</li>
-                    <li>No contienen datos personales identificables.</li>
-                </ul>
-                <p>Adicionalmente, se utiliza <code>sessionStorage</code> para registrar si se ha mostrado la animación de ayuda del panel de configuración móvil, evitando que se repita en la misma sesión. Este dato se elimina al cerrar el navegador.</p>
+                <h3>2.4. Almacenamiento técnico del navegador (tecnologías similares)</h3>
+                <p>El sitio utiliza las siguientes tecnologías de almacenamiento en el navegador, que se consideran <strong>estrictamente necesarias o técnicas</strong> y, por tanto, exentas de consentimiento conforme al art. 22.2 LSSI-CE:</p>
+                <table class="legal__table">
+                    <thead>
+                        <tr>
+                            <th>Tecnología</th>
+                            <th>Nombre/clave</th>
+                            <th>Finalidad</th>
+                            <th>Duración</th>
+                            <th>Exención</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>JavaScript runtime</td>
+                            <td>Variables en memoria</td>
+                            <td>Configurador de servicios: almacenar selecciones de base, módulos y transversales durante la sesión de uso</td>
+                            <td>Se eliminan al cerrar o recargar la página</td>
+                            <td>Estrictamente necesario para la funcionalidad solicitada</td>
+                        </tr>
+                        <tr>
+                            <td><code>sessionStorage</code></td>
+                            <td><code>crux-drawer-hinted</code></td>
+                            <td>Registrar si se ha mostrado la animación de ayuda del panel móvil para no repetirla</td>
+                            <td>Se elimina al cerrar el navegador</td>
+                            <td>Estrictamente necesario para la experiencia de usuario</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Ninguna de estas tecnologías contiene datos personales identificables ni se transmite a servidores externos.</p>
 
                 <h2>3. ¿Cómo gestionar las cookies?</h2>
                 <p>Usted puede configurar su navegador para aceptar, rechazar o eliminar las cookies. A continuación le indicamos cómo hacerlo en los principales navegadores:</p>

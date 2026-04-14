@@ -59,7 +59,7 @@
             { id: 'T-seoaudit',  name: 'Auditoría SEO inicial',        priceFrom: 350, unit: 'oneoff',  priceLabel: 'Desde 350 €' },
             { id: 'T-seomensual',name: 'SEO mensual',                  priceFrom: 350, unit: 'monthly', priceLabel: 'Desde 350 €/mes' },
             { id: 'T-multilang', name: 'Multiidioma',                  priceFrom: 600, unit: 'oneoff',  priceLabel: 'Desde 600 €/idioma' },
-            { id: 'T-rgpd',      name: 'Legal RGPD básico',            priceFrom: 200, unit: 'oneoff',  priceLabel: 'Desde 200 €' },
+            { id: 'T-rgpd',      name: 'Soporte técnico RGPD',          priceFrom: 200, unit: 'oneoff',  priceLabel: 'Desde 200 €' },
             { id: 'T-ia',        name: 'IA básica (chatbot LLM)',      priceFrom: 800, unit: 'oneoff',  priceLabel: 'Desde 800 €' },
             { id: 'T-mant',      name: 'Mantenimiento mensual',        priceFrom: 120, unit: 'monthly', priceLabel: 'Desde 120 €/mes' },
             { id: 'T-auto',      name: 'Automatizaciones no-code',     priceFrom: 350, unit: 'oneoff',  priceLabel: 'Desde 350 €' },
