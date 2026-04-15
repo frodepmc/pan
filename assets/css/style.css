@@ -915,13 +915,15 @@ textarea:focus-visible {
     gap: 0.15rem;
 }
 .panel-path__title {
-    font-family: var(--font-display);
-    font-size: clamp(1rem, 1.3vw, 1.15rem);
-    font-weight: 500;
+    font-family: var(--font-brand);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     line-height: 1.2;
 }
 .panel-path__desc {
-    font-size: 0.74rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     line-height: 1.45;
 }
