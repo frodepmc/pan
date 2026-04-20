@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso interno · CRUX Consulting</title>
+    <meta name="description" content="Panel interno CRUX — acceso restringido al equipo.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#13253C">
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body class="adm-login" data-admin-page="login">
+
+    <!-- ═══════════════════════════════════
+         LEFT STAGE — editorial
+         ═══════════════════════════════════ -->
+    <section class="adm-stage" aria-labelledby="stageHeadline">
+        <header class="adm-stage__top">
+            <div class="adm-brand">
+                <span class="adm-brand__mark" aria-hidden="true"></span>
+                <span>CRUX Consulting</span>
+                <span class="adm-brand__pipe" aria-hidden="true"></span>
+                <span class="adm-brand__tag">Observatorio</span>
+            </div>
+            <div class="adm-stage__meta">
+                <div>Panel interno</div>
+                <div><b>v 2.0.0</b></div>
+                <div id="adm-clock">00:00:00</div>
+            </div>
+        </header>
+
+        <div class="adm-stage__body">
+            <p class="kicker adm-stage__kicker">Área privada · acceso restringido</p>
+            <h1 class="adm-stage__headline" id="stageHeadline">
+                Atelier<br>
+                <em>interno.</em>
+            </h1>
+            <span class="adm-stage__rule" aria-hidden="true"></span>
+            <p class="adm-stage__sub">
+                Este es el panel del equipo CRUX. Desde aquí accedes a las
+                <strong>integraciones internas</strong> que operan sobre datos
+                reales del negocio. Nadie fuera del equipo debe pasar de esta puerta.
+            </p>
+        </div>
+
+        <div class="adm-stage__foot">
+            <div class="adm-stage__specs" aria-hidden="true">
+                <span>ENTORNO · <b>Producción</b></span>
+                <span>CIFRADO · <b>TLS 1.3</b></span>
+                <span>SESIÓN · <b>7 días</b></span>
+                <span>ZONA · <b>EU / Mallorca</b></span>
+            </div>
+            <a href="/" class="adm-stage__backlink">Volver a la web pública</a>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         RIGHT PORTAL — sealed form
+         ═══════════════════════════════════ -->
+    <section class="adm-portal" aria-labelledby="portalTitle">
+        <div class="adm-portal__inner">
+            <div class="adm-portal__header">
+                <span class="adm-portal__seal">
+                    <span class="adm-portal__seal-dot" aria-hidden="true"></span>
+                    Acceso seguro
+                </span>
+                <span class="adm-portal__sid" id="adm-sid">SID · ------------</span>
+            </div>
+
+            <div>
+                <h2 class="adm-portal__title" id="portalTitle">
+                    Introduce tus <em>credenciales</em>.
+                </h2>
+                <p class="adm-portal__intro">
+                    Solo el equipo autorizado puede continuar. Cualquier intento
+                    queda registrado con hora y huella.
+                </p>
+            </div>
+
+            <form class="adm-form" id="adm-login-form" autocomplete="on" novalidate>
+                <div class="adm-field">
+                    <label class="adm-field__label" for="adm-user">
+                        <span class="num">01</span> Usuario
+                    </label>
+                    <div class="adm-field__control">
+                        <input id="adm-user" name="username" type="email" autocomplete="username" placeholder="tu@crux..." required>
+                    </div>
+                </div>
+
+                <div class="adm-field">
+                    <label class="adm-field__label" for="adm-pass">
+                        <span class="num">02</span> Contraseña
+                    </label>
+                    <div class="adm-field__control">
+                        <input id="adm-pass" name="password" type="password" autocomplete="current-password" placeholder="••••••••" required>
+                        <button type="button" class="adm-field__toggle" data-pass-toggle aria-label="Mostrar contraseña">Mostrar</button>
+                    </div>
+                </div>
+
+                <div class="adm-form__actions">
+                    <button type="submit" class="adm-submit">
+                        <span class="adm-submit__label">Entrar</span>
+                        <span class="adm-submit__arrow" aria-hidden="true">→</span>
+                    </button>
+                    <p class="adm-status" id="adm-status" role="status" aria-live="polite"></p>
+                </div>
+            </form>
+
+            <footer class="adm-portal__foot">
+                <span>Sesión <b>httpOnly · JWT HS256</b></span>
+                <span>Política · <a href="/privacidad" style="color: inherit; border-bottom: 1px solid rgba(255,255,255,0.2);">privacidad interna</a></span>
+            </footer>
+        </div>
+    </section>
+
+    <script src="/assets/js/admin.js" defer></script>
+</body>
+</html>

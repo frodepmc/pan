@@ -1,0 +1,48 @@
+[
+    {
+        "id": "financial",
+        "name": "Dashboard financiero",
+        "description": "Control de runway, facturación, gastos y rutinas semanales. Snapshot en Vercel KV con autoguardado.",
+        "path": "/admin/integrations/financial",
+        "status": "live",
+        "roles": ["admin", "finance"],
+        "icon": "chart",
+        "meta": ["React inline", "KV backed", "PDF export"]
+    },
+    {
+        "id": "leads",
+        "name": "CRM de leads",
+        "description": "Pipeline de contactos desde la web, WhatsApp e Instagram. Con seguimiento y etiquetas por fase.",
+        "status": "soon",
+        "roles": ["admin", "sales"],
+        "icon": "users",
+        "meta": ["Conversaciones", "Tags", "Alertas"]
+    },
+    {
+        "id": "newsletter",
+        "name": "Envío interno",
+        "description": "Composición y envío de emails operativos al equipo y a clientes con plantilla CRUX.",
+        "status": "soon",
+        "roles": ["admin"],
+        "icon": "mail",
+        "meta": ["Plantillas", "Log de envíos"]
+    },
+    {
+        "id": "docs",
+        "name": "Biblioteca de propuestas",
+        "description": "Acceso rápido a propuestas, PDFs comerciales y documentación interna vigente.",
+        "status": "soon",
+        "roles": ["admin", "sales"],
+        "icon": "document",
+        "meta": ["PDF", "Versionado"]
+    },
+    {
+        "id": "settings",
+        "name": "Configuración del equipo",
+        "description": "Gestión de usuarios, roles y credenciales. Sólo rol administrador.",
+        "status": "soon",
+        "roles": ["admin"],
+        "icon": "settings",
+        "meta": ["Roles", "Auditoría"]
+    }
+]

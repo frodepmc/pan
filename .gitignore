@@ -27,3 +27,8 @@ index.backup-*.html
 
 # Debug / testing
 .playwright-mcp/
+test-results/
+pan2/
+
+# Local Claude Code session state
+.claude/

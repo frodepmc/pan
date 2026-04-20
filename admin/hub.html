@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub · Panel interno CRUX</title>
+    <meta name="description" content="Hub de integraciones internas — CRUX Consulting.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#F2EFE9">
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body class="adm-hub" data-admin-page="hub">
+
+    <!-- ═══════════════════════════════════
+         TOPBAR
+         ═══════════════════════════════════ -->
+    <header class="adm-topbar" role="banner">
+        <div class="adm-topbar__left">
+            <a href="/admin/hub" class="adm-topbar__brand">
+                <span class="adm-topbar__brand-mark" aria-hidden="true"></span>
+                <span>CRUX · Observatorio</span>
+            </a>
+            <span class="adm-topbar__divider" aria-hidden="true"></span>
+            <span class="adm-topbar__session">
+                <span class="adm-topbar__session-dot" aria-hidden="true"></span>
+                Sesión · <b id="adm-user-tag">—</b> · <span id="adm-role-tag">admin</span>
+            </span>
+        </div>
+        <div class="adm-topbar__right">
+            <span class="adm-topbar__clock mono" id="adm-clock">00:00:00</span>
+            <span class="adm-topbar__divider" aria-hidden="true"></span>
+            <button type="button" class="adm-logout" id="adm-logout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════
+         HERO / INTRO
+         ═══════════════════════════════════ -->
+    <section class="adm-hub__hero">
+        <div class="adm-hub__hero-grid">
+            <div>
+                <p class="kicker">Panel interno · Hub</p>
+                <h1 class="adm-hub__title">
+                    Elige una<br>
+                    <em>intervención.</em>
+                </h1>
+            </div>
+            <aside class="adm-hub__sidemeta" aria-label="Metadata de sesión">
+                <div class="adm-hub__sidemeta-row">
+                    <span>Operador</span>
+                    <b class="mono" id="adm-user-tag-b">—</b>
+                </div>
+                <div class="adm-hub__sidemeta-row">
+                    <span>Rol</span>
+                    <b class="mono" id="adm-role-tag-b">admin</b>
+                </div>
+                <div class="adm-hub__sidemeta-row">
+                    <span>Sesión hasta</span>
+                    <b class="mono" id="adm-session-exp">—</b>
+                </div>
+                <div class="adm-hub__sidemeta-row adm-hub__sidemeta-row--accent">
+                    <span>Entorno</span>
+                    <b class="mono">PROD · EU</b>
+                </div>
+            </aside>
+        </div>
+        <p class="adm-hub__lead" style="margin-top: 2rem;">
+            Cada tarjeta abajo es una <strong>herramienta interna</strong> enganchada a un
+            backend propio. El catálogo crece con el tiempo — las marcadas como
+            <em>live</em> están en producción, el resto están preparándose.
+        </p>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         INTEGRATIONS GRID
+         ═══════════════════════════════════ -->
+    <p class="adm-hub__chapter">Integraciones disponibles</p>
+    <main class="adm-integrations" id="adm-integrations" aria-label="Integraciones internas">
+        <!-- render dinámico desde /admin/integrations.json -->
+    </main>
+
+    <!-- ═══════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════ -->
+    <footer class="adm-footer">
+        <span>CRUX · Panel interno <b class="mono">v 2.0.0</b></span>
+        <span>Observatorio · <b class="mono">EU · Mallorca</b></span>
+    </footer>
+
+    <script src="/assets/js/admin.js" defer></script>
+    <script>
+    // Mirror user/role tags to sidemeta (updated after guard resolves)
+    document.addEventListener('DOMContentLoaded', function () {
+        var obs = new MutationObserver(function () {
+            var u = document.getElementById('adm-user-tag');
+            var r = document.getElementById('adm-role-tag');
+            var ub = document.getElementById('adm-user-tag-b');
+            var rb = document.getElementById('adm-role-tag-b');
+            if (u && ub) ub.textContent = u.textContent;
+            if (r && rb) rb.textContent = r.textContent;
+        });
+        ['adm-user-tag', 'adm-role-tag'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) obs.observe(el, { childList: true, characterData: true, subtree: true });
+        });
+    });
+    </script>
+</body>
+</html>
