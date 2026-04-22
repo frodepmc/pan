@@ -2283,8 +2283,9 @@
 
     /* ═══════════ TAB: Clientes ═══════════
        Clientes derivados de `movimientos` (nombre, facturación, fechas).
-       La metadata manual (margen, estado, notas) vive en el state `clientes` indexado por nombre. */
-    function TabClientes({ movimientos, clientes, setClientes, selAnyo, setSelAnyo, selMes, setSelMes, navMes, goHoy, setTab }) {
+       La metadata manual (margen, estado, notas) vive en el state `clientes` indexado por nombre.
+       Eliminar un cliente borra su metadata Y todos sus movimientos asociados (doble-clic para confirmar). */
+    function TabClientes({ movimientos, setMovimientos, clientes, setClientes, selAnyo, setSelAnyo, selMes, setSelMes, navMes, goHoy, setTab }) {
       var MESES_FULL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
       /* mes/año globales — calendar sync */
       var [cliVistaAnual, setCliVistaAnual] = useState(false);
@@ -2311,6 +2312,28 @@
           if (!found) next = next.concat([Object.assign({ nombre: nombre, margen: 0, estado: "activo", notas: "" }, (function() { var o = {}; o[field] = value; return o; })())]);
           return next;
         });
+      };
+
+      /* Eliminar cliente: borra metadata + todos los movimientos con ese cliente.
+         Doble-clic para confirmar (patrón "arma → confirma" coherente con Movimientos). */
+      var [armados, setArmados] = useState({});
+      useEffect(function() {
+        var armadosActivos = Object.keys(armados).filter(function(k) { return armados[k]; });
+        if (armadosActivos.length === 0) return undefined;
+        var t = setTimeout(function() { setArmados({}); }, 2500);
+        return function() { clearTimeout(t); };
+      }, [armados]);
+      var toggleArmado = function(nombre) {
+        setArmados(function(prev) {
+          var next = Object.assign({}, prev);
+          next[nombre] = !prev[nombre];
+          return next;
+        });
+      };
+      var removeCliente = function(nombre) {
+        if (setMovimientos) setMovimientos(function(arr) { return arr.filter(function(m) { return m.cliente !== nombre; }); });
+        setClientes(function(arr) { return (arr || []).filter(function(c) { return c.nombre !== nombre; }); });
+        setArmados(function(prev) { var next = Object.assign({}, prev); delete next[nombre]; return next; });
       };
 
       var sorted = displayClientes.slice().sort(function(a, b) { return Number(b.fact || 0) - Number(a.fact || 0); });
@@ -2393,9 +2416,9 @@
                 <CardLabel>{isAnual ? "Ranking Global " + cliAnyo : "Clientes del Mes"}</CardLabel>
                 {setTab && <Btn variant="primary" size="xs" onClick={function() { setTab("movimientos"); }}>+ Movimiento</Btn>}
               </div>
-              <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}><div style={{ minWidth: 720 }}>
-              <div style={{ display: "grid", gridTemplateColumns: "28px 2fr 1fr 0.7fr 0.6fr 0.9fr 0.9fr 0.9fr", fontSize: 10, color: C.textDim, paddingBottom: 8, borderBottom: "1px solid " + C.border }}>
-                <span>#</span><span>Cliente</span><span style={{ textAlign: "right" }}>{isAnual ? "Fact. anual" : "Facturación"}</span><span style={{ textAlign: "center" }}>Margen %</span><span style={{ textAlign: "center" }}>Share</span><span style={{ textAlign: "center" }}>Alta</span><span style={{ textAlign: "center" }}>Últ. serv.</span><span style={{ textAlign: "center" }}>Estado</span>
+              <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}><div style={{ minWidth: 760 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "28px 2fr 1fr 0.7fr 0.6fr 0.9fr 0.9fr 0.9fr 36px", fontSize: 10, color: C.textDim, paddingBottom: 8, borderBottom: "1px solid " + C.border }}>
+                <span>#</span><span>Cliente</span><span style={{ textAlign: "right" }}>{isAnual ? "Fact. anual" : "Facturación"}</span><span style={{ textAlign: "center" }}>Margen %</span><span style={{ textAlign: "center" }}>Share</span><span style={{ textAlign: "center" }}>Alta</span><span style={{ textAlign: "center" }}>Últ. serv.</span><span style={{ textAlign: "center" }}>Estado</span><span></span>
               </div>
               {sorted.length === 0 ? (
                 <div style={{ padding: "30px 0", textAlign: "center", fontSize: 12, color: C.textDim }}>Sin clientes con ingresos este periodo. Añade un movimiento con <code style={{ color: C.accent }}>cliente</code> no vacío.</div>
@@ -2403,8 +2426,10 @@
                 var pct = totalFact > 0 ? ((Number(c.fact) / totalFact) * 100).toFixed(0) : 0;
                 var mc = Number(c.margen) >= 50 ? C.green : Number(c.margen) >= 35 ? C.amber : C.red;
                 var ec = estadoColor(c.estado || "activo");
+                var armado = !!armados[c.nombre];
+                var movsCount = movimientos.filter(function(m) { return m.cliente === c.nombre; }).length;
                 return (
-                  <div key={c.nombre} style={{ display: "grid", gridTemplateColumns: "28px 2fr 1fr 0.7fr 0.6fr 0.9fr 0.9fr 0.9fr", padding: "10px 0", borderBottom: rank < sorted.length - 1 ? "1px solid " + C.border : "none", alignItems: "center" }}>
+                  <div key={c.nombre} style={{ display: "grid", gridTemplateColumns: "28px 2fr 1fr 0.7fr 0.6fr 0.9fr 0.9fr 0.9fr 36px", padding: "10px 0", borderBottom: rank < sorted.length - 1 ? "1px solid " + C.border : "none", alignItems: "center" }}>
                     <span style={{ fontSize: 12, fontWeight: 700, color: rank < 3 ? C.accent : C.textDim }}>{rank + 1}</span>
                     {/* Nombre read-only (deriva del movimiento) */}
                     <span style={{ fontSize: 13, color: C.text, fontWeight: 500 }}>{c.nombre}</span>
@@ -2439,6 +2464,28 @@
                         backgroundSize: "10px 6px",
                       }}
                     />
+                    {/* Delete — doble clic para confirmar (borra metadata + movimientos asociados) */}
+                    <button
+                      onClick={function() { if (armado) { removeCliente(c.nombre); } else { toggleArmado(c.nombre); } }}
+                      title={armado ? "Clic de nuevo: borrar cliente + " + movsCount + " movimiento(s)" : "Eliminar (clic para armar)"}
+                      style={{
+                        background: armado ? "rgba(201,112,100,0.18)" : "transparent",
+                        border: "1px solid " + (armado ? C.red : "transparent"),
+                        color: armado ? C.red : C.textDim,
+                        cursor: "pointer",
+                        fontSize: armado ? 11 : 16,
+                        fontWeight: armado ? 700 : 400,
+                        padding: armado ? "3px 5px" : 0,
+                        lineHeight: 1,
+                        borderRadius: 4,
+                        transition: "all 0.15s",
+                        fontFamily: font,
+                        letterSpacing: armado ? 0.3 : 0,
+                        textTransform: armado ? "uppercase" : "none",
+                      }}
+                      onMouseEnter={function(e) { if (!armado) { e.target.style.color = C.red; e.target.style.background = "rgba(201,112,100,0.08)"; } }}
+                      onMouseLeave={function(e) { if (!armado) { e.target.style.color = C.textDim; e.target.style.background = "transparent"; } }}
+                    >{armado ? "✓" : "×"}</button>
                   </div>
                 );
               })}
@@ -3777,7 +3824,7 @@
                 tab === "pyl" ? <TabPYL pyl={pylDerived} setPyl={setPyl} pylMensual={pylMensual} setPylMensual={setPylMensual} selAnyo={selAnyo} setSelAnyo={setSelAnyo} selMes={selMes} setSelMes={setSelMes} navMes={navMesGlobal} goHoy={goHoy} setTab={setTab} /> : null,
                 tab === "costes" ? <TabCostes pyl={pylDerived} setPyl={setPyl} pylMensual={pylMensual} setPylMensual={setPylMensual} selAnyo={selAnyo} setSelAnyo={setSelAnyo} selMes={selMes} setSelMes={setSelMes} navMes={navMesGlobal} goHoy={goHoy} selIng={selIng} selCos={selCos} selOpex={selOpex} movimientos={movimientos} setTab={setTab} /> : null,
                 tab === "cash" ? <TabCash aging={aging} setAging={setAging} cash={cash} setCash={setCash} forecast={forecast} setForecast={setForecast} movimientos={movimientos} runwayMeses={runwayMeses} costesRecurrentes={costesRecurrentes} ingresosRecurrentes={ingresosRecurrentes} netoRecurrente={netoRecurrente} cajaHoy={cajaHoy} netoTotalMovs={netoTotalMovs} /> : null,
-                tab === "clientes" ? <TabClientes movimientos={movimientos} clientes={clientes} setClientes={setClientes} selAnyo={selAnyo} setSelAnyo={setSelAnyo} selMes={selMes} setSelMes={setSelMes} navMes={navMesGlobal} goHoy={goHoy} setTab={setTab} /> : null,
+                tab === "clientes" ? <TabClientes movimientos={movimientos} setMovimientos={setMovimientos} clientes={clientes} setClientes={setClientes} selAnyo={selAnyo} setSelAnyo={setSelAnyo} selMes={selMes} setSelMes={setSelMes} navMes={navMesGlobal} goHoy={goHoy} setTab={setTab} /> : null,
                 tab === "unit" ? <TabUnit servicios={servicios} updateServicios={updateArr(setServicios)} setServicios={setServicios} /> : null,
                 tab === "escenarios" ? <TabEscenarios escenarios={escenarios} updateEscenarios={updateArr(setEscenarios)} pyl={pylBaseline} cash={cash} burnRate={burnRate} /> : null,
                 tab === "estrategico" ? <TabEstrategico data={estrategico} setData={setEstrategico} pyl={pylDerived} clientes={selClientes} pylMensual={pylMensual} servicios={servicios} /> : null,
